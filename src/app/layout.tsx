@@ -1,15 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// 1. Import both fonts
+import localFont from "next/font/local";
+import { Lekton, Luckiest_Guy } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const hiragino = localFont({
+  src: "./fonts/Hiragino.otf",
+  variable: "--font-hiragino",
+  weight: "800",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+//Configured Lekton
+const lekton = Lekton({
   subsets: ["latin"],
+  weight: ["400", "700"], // Regular and Bold
+  variable: "--font-lekton",
+});
+
+// 3. Configured Luckiest Guy
+const luckiest = Luckiest_Guy({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-luckiest",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${lekton.variable} ${luckiest.variable} ${hiragino.variable} antialiased`}
       >
         {children}
       </body>
