@@ -14,7 +14,7 @@ const Navbar = () => {
             <Link
               key={id}
               href={link.url}
-              className="mx-[30px] font-mono text-2xl"
+              className="mx-[30px] font-lekton text-[24px] font-bold"
             >
               {link.title}
             </Link>

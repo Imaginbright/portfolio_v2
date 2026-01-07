@@ -8,10 +8,13 @@
   --color-primary: #ff9d52;
   --color-card: #1a1a1f;
 
+  --shadow-sharp: 3px 3px 0.3px rgba(151, 158, 166, 0.5);
+  --shadow-sharper: 6px 8px 0.3px rgba(151, 158, 166, 0.5);
+
   --background-image: url("/images/line.png");
 }
 
-@utility font-mono {
+@utility font-lekton {
   font-family: var(--font-lekton), monospace;
 }
 
@@ -24,8 +27,9 @@
 }
 
 body {
-  /* Even if you don't want Lekton here, keep a default font */
-
+  font-family: var(--font-lekton), monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-black);
   background-image: var(--background-image);
   color: white;
@@ -42,5 +46,14 @@ body {
   }
   .abs-center {
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .border1 {
+    @apply border border-white/25 pt-7 px-9 bg-card;
+  }
+  .border2 {
+    @apply p-7;
+  }
+  .h4 {
+    @apply text-[1.125rem] leading-6.5;
   }
 }
