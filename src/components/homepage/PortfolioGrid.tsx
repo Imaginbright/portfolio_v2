@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Button from "../buttons/Button";
+import Badge from "../buttons/Badge";
 
 const PortfolioGrid = () => {
   return (
@@ -11,7 +12,7 @@ const PortfolioGrid = () => {
           <div className="flex">
             <div className="flex flex-1 flex-col">
               <h1 className="font-bold text-[40px]/12">Okonkwo Somto</h1>
-              <h4 className="text-white/55">@imaginbright</h4>
+              <h4 className="text-white/55 text-[20px]">@imaginbright</h4>
 
               <p className="mt-9 text-[#979EA6] text-[20px]/6 ">
                 I’m a Web Developer dedicated to building seamless,
@@ -56,8 +57,16 @@ const PortfolioGrid = () => {
         </section>
 
         {/* Stack */}
-        <section className="md:col-span-5 min-h-[392px] rounded-[30px] border1">
-          Stack
+        <section className="md:col-span-5 min-h-[392px] rounded-[30px] border border-white/25 p-6 bg-card">
+          <h2 className="text-[40px] leading-10 font-bold">Stack</h2>
+          <h4 className="text-white/55">Web Development</h4>
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2">
+              <Badge width={26} height={22} icon="/icons/react.svg">
+                React
+              </Badge>
+            </div>
+          </div>
         </section>
 
         {/* Top Content */}

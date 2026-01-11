@@ -4,7 +4,7 @@ interface Props {
   className?: string;
   href?: string;
   children: React.ReactNode;
-  px?: number;
+  px?: string;
   type?: "button" | "submit" | "reset";
 }
 
