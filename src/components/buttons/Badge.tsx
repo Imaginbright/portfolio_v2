@@ -23,8 +23,8 @@ const Badge = ({
   // Base classes with rounded-full for pill shape and flex for layout
   const classes = `
     relative inline-flex items-center justify-center 
-    h-[33px] font-mono shadow-sharp rounded-full
-    bg-gray-300 text-black border border-black 
+    h-[33px] font-mono rounded-[10px]
+    bg-gray-300/80 text-black
     ${px || "px-3"} 
     ${className || ""}
   `;
@@ -33,14 +33,14 @@ const Badge = ({
     <button type={type} className={classes} {...rest}>
       {/* Icon Rendering Logic */}
       {icon && (
-        <span className="mr-3 flex items-center justify-center">
+        <span className="mr-[5px] flex items-center justify-center">
           {typeof icon === "string" ? (
             <Image
               src={icon}
               width={width}
               height={height}
-              alt=""
-              className="w-5 h-5 object-contain"
+              alt="Badge Icon"
+              className="object-contain"
             />
           ) : (
             icon
