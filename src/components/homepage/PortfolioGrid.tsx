@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Button from "../buttons/Button";
-import Badge from "../buttons/Badge";
+import Stack from "../chunks/Stack";
 
 const PortfolioGrid = () => {
   return (
@@ -58,78 +58,7 @@ const PortfolioGrid = () => {
 
         {/* Stack */}
         <section className="md:col-span-5 min-h-[392px] rounded-[30px] border border-white/25 p-6 bg-card">
-          <h2 className="text-[40px] leading-10 font-bold">Stack</h2>
-          <h4 className="text-white/55">Web Development</h4>
-          <div className="flex flex-col gap-1.5">
-            <div className="flex gap-2">
-              <Badge
-                className="mt-2.5 w-full"
-                width={26}
-                height={22}
-                icon="/icons/react.svg"
-              >
-                React
-              </Badge>
-
-              <Badge
-                className="mt-2.5 w-full"
-                width={25}
-                height={25}
-                icon="/icons/next.svg"
-              >
-                Next.js
-              </Badge>
-            </div>
-
-            <Badge
-              className="mt-2.5 w-full"
-              width={39}
-              height={19}
-              icon="/icons/tailwind.svg"
-            >
-              Tailwind CSS
-            </Badge>
-
-            <div className="flex gap-2">
-              <Badge
-                className="mt-2.5 w-full"
-                width={20}
-                height={24}
-                icon="/icons/node.svg"
-              >
-                Node.js
-              </Badge>
-
-              <Badge
-                className="mt-2.5 w-full"
-                width={22}
-                height={24}
-                icon="/icons/gsap.svg"
-              >
-                GSAP
-              </Badge>
-            </div>
-
-            <h4 className="text-white/55 mt-3.5">3D/Design</h4>
-
-            <Badge
-              className="mt-2.5 w-full"
-              width={21}
-              height={19}
-              icon="/icons/affinity.svg"
-            >
-              Affinity Photo
-            </Badge>
-
-            <Badge
-              className="mt-2.5 w-full"
-              width={28}
-              height={21}
-              icon="/icons/blender.svg"
-            >
-              Blender
-            </Badge>
-          </div>
+          <Stack />
         </section>
 
         {/* Top Content */}
@@ -141,13 +70,31 @@ const PortfolioGrid = () => {
         </aside>
 
         {/* Dev Portfolio */}
-        <section className="md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2">
-          Dev Portfolio
+        <section className="relative w-full md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2">
+          <Image
+            src="/images/portfolio.png"
+            alt="Development Portfolio Image"
+            fill
+            priority
+          />
         </section>
 
         {/* 3D Portfolio */}
-        <section className="md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2">
-          3D Portfolio
+        <section className="relative w-full md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2">
+          <Image
+            src="/images/keyboard.png"
+            alt="3D Portfolio Image"
+            fill
+            priority
+          />
+
+          <div className="relative z-10 flex flex-col h-full items-center justify-center">
+            <div className="flex gap-2">
+              <h1 className="text-9xl font-cursive text-transparent [-webkit-text-stroke:2px_white]">
+                3D
+              </h1>
+            </div>
+          </div>
         </section>
       </div>
     </main>
