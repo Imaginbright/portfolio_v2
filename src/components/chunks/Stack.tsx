@@ -3,8 +3,7 @@ import Badge from "../buttons/Badge";
 
 const Stack = () => {
   return (
-    <div>
-      {" "}
+    <>
       <h2 className="text-[40px] leading-10 font-bold">Stack</h2>
       <h4 className="text-white/55">Web Development</h4>
       <div className="flex flex-col gap-1.5">
@@ -77,7 +76,7 @@ const Stack = () => {
           Blender
         </Badge>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -2,6 +2,8 @@ import Image from "next/image";
 import React from "react";
 import Button from "../buttons/Button";
 import Stack from "../chunks/Stack";
+import ThreeSection from "../chunks/ThreeSection";
+import DevSection from "../chunks/DevSection";
 
 const PortfolioGrid = () => {
   return (
@@ -35,7 +37,7 @@ const PortfolioGrid = () => {
                 alt="Profile Picture"
                 width={164}
                 height={220}
-                className="pt-2"
+                className="pt-2 loading=eager"
               />
 
               <div className="flex gap-3 mt-12 items-center">
@@ -46,7 +48,7 @@ const PortfolioGrid = () => {
               <p className="text-[12px] ml-[17px]">19/11/2025</p>
 
               <Image
-                src="/images/arrow.png"
+                src="/icons/Leftarrow.svg"
                 alt="Arrow pointing to text that says that I'm Available for work"
                 width={31}
                 height={38}
@@ -70,31 +72,13 @@ const PortfolioGrid = () => {
         </aside>
 
         {/* Dev Portfolio */}
-        <section className="relative w-full md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2">
-          <Image
-            src="/images/portfolio.png"
-            alt="Development Portfolio Image"
-            fill
-            priority
-          />
+        <section className="group relative w-full md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2 overflow-hidden">
+          <DevSection />
         </section>
 
         {/* 3D Portfolio */}
-        <section className="relative w-full md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2">
-          <Image
-            src="/images/keyboard.png"
-            alt="3D Portfolio Image"
-            fill
-            priority
-          />
-
-          <div className="relative z-10 flex flex-col h-full items-center justify-center">
-            <div className="flex gap-2">
-              <h1 className="text-9xl font-cursive text-transparent [-webkit-text-stroke:2px_white]">
-                3D
-              </h1>
-            </div>
-          </div>
+        <section className="group relative w-full md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2 overflow-hidden">
+          <ThreeSection />
         </section>
       </div>
     </main>

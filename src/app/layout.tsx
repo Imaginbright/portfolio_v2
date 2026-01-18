@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 // 1. Import both fonts
 import localFont from "next/font/local";
-import { Luckiest_Guy } from "next/font/google";
 import "./globals.css";
 
 const hiragino = localFont({
@@ -28,9 +27,10 @@ const lekton = localFont({
 });
 
 // 3. Configured Luckiest Guy
-const luckiest = Luckiest_Guy({
-  subsets: ["latin"],
+const luckiest = localFont({
+  src: "./fonts/Luckiestguy.ttf",
   weight: "400",
+  style: "normal",
   variable: "--font-luckiest",
 });
 
