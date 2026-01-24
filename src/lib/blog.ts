@@ -1,12 +1,20 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { IPost } from "../../post";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
 // 1. Define exactly what is in your MDX frontmatter
 interface MDXFrontmatter {
+  title: string;
+  author: string;
+  date: string;
+  category: string;
+  thumbnail: string;
+}
+
+export interface IPost {
+  slug: string;
   title: string;
   author: string;
   date: string;
@@ -47,4 +55,25 @@ export function getPostData(slug: string) {
     frontmatter,
     content,
   };
+}
+
+export function getFeaturedPostsByCategory(
+  category: string,
+  limit: number = 6,
+): IPost[] {
+  const allPosts = getAllPosts();
+
+  // 1. Filter: Keep only posts where the category matches exactly
+  // We use .toLowerCase() to ensure "Featured" matches "featured"
+  const filteredPosts = allPosts.filter(
+    (post) => post.category.toLowerCase() === category.toLowerCase(),
+  );
+
+  // 2. Sort: Ensure newest featured posts are first
+  filteredPosts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+
+  // 3. Slice: Only return the requested number of items
+  return filteredPosts.slice(0, limit);
 }

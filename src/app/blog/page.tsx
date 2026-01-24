@@ -7,18 +7,17 @@ export default function BlogIndexPage() {
   const posts = getAllPosts();
 
   return (
-    <div className="container mx-auto px-8">
-      <div className="flex justify-between items-center my-5 w-[93%]">
+    <div className="container mx-auto px-20">
+      <div className="flex justify-between items-center my-5">
         <Link href="/" aria-label="Home">
-          <p className="text-5xl font-heavy">亮</p>
+          <p className="font-cursive text-5xl text-[#C4C4C4]">Home</p>
         </Link>
-        <h1 className="font-cursive text-9xl -mb-12 text-[#C4C4C4]">Blogs</h1>
       </div>
       {/* 1. GRID SETUP: 
          - Use 'auto-rows' to ensure consistent heights.
          - 'dense' helps fill in gaps if sizes vary.
       */}
-      <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(250px,auto)] gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(180px,auto)] gap-5">
         {posts.map((p, idx) => {
           // 2. LOGIC: Check if this is the first item
           const isHero = idx === 0;
@@ -31,7 +30,7 @@ export default function BlogIndexPage() {
               // - Remove fixed width (w-[392px]) -> Use w-full
               // - If Hero: span 2 cols and 2 rows
               // - If Normal: span 1 col
-              className={`group rounded-lg overflow-hidden flex flex-col w-full
+              className={`group rounded-lg border border-white/25 bg-card overflow-hidden flex flex-col w-full
                 ${isHero ? "md:col-span-2 md:row-span-2" : "col-span-1"}`}
             >
               {/* Thumbnail Container */}
