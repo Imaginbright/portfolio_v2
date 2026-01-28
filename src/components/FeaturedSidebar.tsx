@@ -9,21 +9,18 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
     // CHANGE 1: Removed the Fragment (<>) wrapper since the parent div can handle it
     <div className="flex flex-col h-full">
       {/* Title */}
-      <h3 className="text-[40px] font-bold text-primary mb-6">Top Content</h3>
+      <h3 className="text-[40px] font-bold text-primary mb-4">Featured</h3>
 
       {/* Scrollable List container */}
-      {/* CHANGE 2: Removed 'gap-5' because the dividers + margins now handle the spacing */}
       <div className="flex flex-col flex-1 overflow-y-auto no-scrollbar">
         {posts.map((post, index) => (
-          // CHANGE 3: Wrapped content in a div to hold both the Link AND the Divider
           <div key={post.slug} className="flex flex-col">
             <Link
               href={`/blog/${post.slug}`}
-              // CHANGE 4: Added padding (py-4) to create space inside the item instead of using gap
-              className="flex items-center gap-4 group py-3"
+              className="flex items-center gap-4 group py-3 px-2"
             >
               {/* Thumbnail Box */}
-              <div className="relative h-[70px] w-[70px] shrink-0 bg-gray-800 rounded-xl overflow-hidden">
+              <div className="relative h-20 w-[110px] shrink-0 bg-gray-800 rounded-xl overflow-hidden">
                 <Image
                   src={post.thumbnail}
                   alt={post.title}
@@ -40,7 +37,7 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
 
               {/* Title Text */}
               <div className="flex flex-col">
-                <h4 className="text-white/80 font-medium text-sm leading-snug line-clamp-2 group-hover:text-[#FF9F43] transition-colors">
+                <h4 className="text-white/80 font-medium text-sm leading-snug line-clamp-2">
                   {post.title}
                 </h4>
               </div>

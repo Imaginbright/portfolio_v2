@@ -30,7 +30,6 @@ export function getAllPosts(): IPost[] {
     const fullPath = path.join(postsDirectory, filename);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
-    // 2. Map the data to your specific interface instead of 'any'
     const { data } = matter(fileContents);
     const frontmatter = data as MDXFrontmatter;
 
@@ -47,7 +46,6 @@ export function getPostData(slug: string) {
 
   const { data, content } = matter(fileContents);
 
-  // 3. Use the interface here as well
   const frontmatter = data as MDXFrontmatter;
 
   return {

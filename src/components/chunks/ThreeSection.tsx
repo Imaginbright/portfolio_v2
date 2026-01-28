@@ -11,7 +11,7 @@ const ThreeSection = () => {
         priority
         quality={95}
         sizes="(max-width: 768px) 100vw, 75vw"
-        className="object-cover transition-all duration-500 group-hover:brightness-35"
+        className="object-cover transition-all brightness-35"
       />
       <div className="relative z-10 flex flex-col h-full items-center justify-center">
         <div className="flex items-center gap-4">

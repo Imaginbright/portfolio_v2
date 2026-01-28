@@ -11,7 +11,7 @@ const DevSection = () => {
         priority
         quality={95}
         sizes="(max-width: 768px) 100vw, 75vw"
-        className="object-cover brightness-85 transition-all duration-500 group-hover:brightness-25"
+        className="object-cover brightness-28"
       />
 
       <div className="relative z-10 flex flex-col h-full items-center justify-center">

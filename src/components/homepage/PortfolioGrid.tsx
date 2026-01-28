@@ -7,6 +7,7 @@ import DevSection from "../chunks/DevSection";
 import FeaturedSidebar from "../FeaturedSidebar";
 
 import { getFeaturedPostsByCategory } from "@/lib/blog";
+import Link from "next/link";
 
 // 2. MAKE COMPONENT ASYNC (Required to fetch data)
 const PortfolioGrid = async () => {
@@ -17,7 +18,7 @@ const PortfolioGrid = async () => {
     <main className="h-dvh w-full flex flex-col">
       <div className="grid grid-cols-1 md:grid-cols-24 gap-6 px-[38px]">
         {/* Profile */}
-        <section className="md:col-span-13 min-h-[392px] rounded-[30px]  border border-white/25 pt-9.5 px-9 bg-card">
+        <section className="md:col-span-13 min-h-[392px] rounded-[30px]  border-2 border-zinc-800 pt-9.5 px-9 bg-card">
           <div className="flex">
             <div className="flex flex-1 flex-col">
               <h1 className="font-bold text-[40px]/12">Okonkwo Somto</h1>
@@ -66,7 +67,7 @@ const PortfolioGrid = async () => {
         </section>
 
         {/* Stack */}
-        <section className="md:col-span-5 min-h-[392px] rounded-[30px] border border-white/25 px-6 pt-7 bg-card">
+        <section className="md:col-span-5 min-h-[392px] rounded-[30px] border-2 border-zinc-800 px-6 pt-7 bg-card">
           <Stack />
         </section>
 
@@ -74,14 +75,18 @@ const PortfolioGrid = async () => {
         <aside className="md:col-span-6 md:row-span-2 min-h-[768px] relative">
           {/* 2. THE VISUAL: Absolute positioned to overshoot the top */}
 
-          <div className="w-full h-full rounded-[30px] md:absolute md:-top-18 md:bottom-0 md:h-auto border border-white/25 pt-5 px-5 bg-card">
+          <div className="w-full h-full rounded-[30px] md:absolute md:-top-18 md:bottom-0 md:h-auto border-2 border-zinc-800 pt-5 px-5 bg-card">
             <FeaturedSidebar posts={featuredPosts} />
           </div>
         </aside>
 
         {/* Dev Portfolio */}
         <section className="group relative w-full md:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2 overflow-hidden">
-          <DevSection />
+          <Link href="/development" className="absolute inset-0 z-10">
+            <span className="sr-only">View Project</span>{" "}
+            {/* Accessibility text */}
+            <DevSection />
+          </Link>
         </section>
 
         {/* 3D Portfolio */}

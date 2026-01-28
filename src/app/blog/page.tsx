@@ -30,7 +30,7 @@ export default function BlogIndexPage() {
               // - Remove fixed width (w-[392px]) -> Use w-full
               // - If Hero: span 2 cols and 2 rows
               // - If Normal: span 1 col
-              className={`group rounded-lg border border-white/25 bg-card overflow-hidden flex flex-col w-full
+              className={`group rounded-lg border-2 border-zinc-800 bg-card overflow-hidden flex flex-col w-full
                 ${isHero ? "md:col-span-2 md:row-span-2" : "col-span-1"}`}
             >
               {/* Thumbnail Container */}
