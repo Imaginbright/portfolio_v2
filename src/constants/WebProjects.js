@@ -3,7 +3,7 @@ export const WebProjects = [
     id: 1,
     title: "Brightsbase",
     image: "/path-to-image.jpg",
-    link: "/projects/Brightsbase",
+    link: "/projects/brightsbase",
   },
   {
     id: 2,
