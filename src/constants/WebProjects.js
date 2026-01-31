@@ -12,17 +12,18 @@ export const WebProjects = [
     link: "/projects/brainwave",
   },
   {
+    id: 4,
+    title: "CineTrack",
+    image: "/path-to-image.jpg",
+    link: "/projects/cinetrack",
+  },
+  {
     id: 3,
     title: "Portfolio",
     image: "/path-to-image.jpg",
     link: "/projects/portfolio",
   },
-  {
-    id: 4,
-    title: "Movie Site",
-    image: "/path-to-image.jpg",
-    link: "/projects/movie-site",
-  },
+
   {
     id: 5,
     title: "Apple Store",
