@@ -8,7 +8,9 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
   return (
     <div className="flex flex-col h-full">
       {/* Title */}
-      <h3 className="text-[40px] font-bold text-primary mb-4">Featured</h3>
+      <h3 className="text-[40px] font-bold text-primary mb-2">
+        Featured Posts
+      </h3>
 
       {/* Scrollable List container */}
       <div className="flex flex-col flex-1 overflow-y-auto no-scrollbar">
@@ -32,7 +34,7 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
 
                 {/* The "Knockout" Number Circle */}
                 <div className="absolute -bottom-1.5 -left-1.5 w-9 h-9 bg-zinc-100 rounded-full flex items-center justify-center border-[5px] border-card z-20">
-                  <span className="text-black font-black text-[10px]">
+                  <span className="text-black font-lekton font-bold text-[14px]">
                     {index + 1}
                   </span>
                 </div>
