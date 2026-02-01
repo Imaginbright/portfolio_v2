@@ -79,6 +79,7 @@ const Projectpage = async ({ params }: Props) => {
         loading="eager"
         width={640}
         height={480}
+        quality={100}
         className="rounded-2xl h-full w-full object-cover object-[45%_center] mt-14"
       />
 

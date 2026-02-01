@@ -10,9 +10,9 @@ export const PROJECTS = [
     url: "https://brightsbase.com",
     stack: ["Next.Js", "Tailwind CSS", "MongoDB Atlas", "Node.JS"],
     images: {
-      main: "/images/bb.png",
-      screenshot1: "/images/bbss1.png",
-      screenshot2: "/images/bbss2.png",
+      main: "/web/bb.png",
+      screenshot1: "/web/bbss1.png",
+      screenshot2: "/web/bbss2.png",
     },
   },
 
@@ -28,8 +28,8 @@ export const PROJECTS = [
     stack: ["React", "Tailwind CSS", "GSAP"],
     images: {
       main: "/web/bw.png",
-      screenshot1: "/web/bwss1.png",
-      screenshot2: "/web/bwss2.png",
+      screenshot1: "/web/bws1.png",
+      screenshot2: "/web/bws2.png",
     },
   },
 
@@ -44,9 +44,9 @@ export const PROJECTS = [
     url: "https://brainwave-challenge.vercel.app/",
     stack: ["Next.Js", "TMDB API", "Tailwind CSS", "Prisma"],
     images: {
-      main: "/web/bw.png",
-      screenshot1: "/web/bwss1.png",
-      screenshot2: "/web/bwss2.png",
+      main: "/web/ct.png",
+      screenshot1: "/web/ctss1.png",
+      screenshot2: "/web/ctss2.png",
     },
   },
 ];
