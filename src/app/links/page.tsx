@@ -28,13 +28,13 @@ const featuredLinks = [
   },
   {
     title: "Blog",
-    url: "https://blog.com",
+    url: "/blog",
     icon: <BookOpen className="w-5 h-5 text-blue-400" />,
     bgColor: "bg-blue-400/10",
   },
   {
     title: "Shop",
-    url: "https://shop.com",
+    url: "https://imaginbrights-store.lemonsqueezy.com/",
     icon: <ShoppingBag className="w-5 h-5 text-purple-400" />,
     bgColor: "bg-purple-400/10",
   },
