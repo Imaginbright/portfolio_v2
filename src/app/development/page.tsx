@@ -6,7 +6,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="max-w-[1600px] mx-auto w-full px-12">
+    <div className="max-w-[1600px] mx-auto w-full px-4 md:px-8 xl:px-12">
       <nav className="flex items-center py-10 w-full">
         <div className="flex w-full justify-between items-center">
           <Link href="/" aria-label="Home">
@@ -27,7 +27,7 @@ const page = () => {
       </nav>
 
       <main className="h-dvh w-full flex flex-col">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-24 pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-16 gap-y-8 md:gap-y-12 xl:gap-y-16 pb-20">
           {WebProjects.map((project) => (
             <Link
               href={project.link}

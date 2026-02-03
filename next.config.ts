@@ -4,7 +4,7 @@ import createMDX from "@next/mdx";
 const nextConfig: NextConfig = {
   // 1. Enable AVIF support (Best for performance)/ fallback to WebP
   images: {
-    qualities: [100, 75, 95],
+    qualities: [100, 75, 95, 90],
     formats: ["image/avif", "image/webp"],
   },
 

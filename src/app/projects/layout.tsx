@@ -7,14 +7,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="max-w-[1600px] mx-auto w-full px-12">
+    <section className="max-w-[1200px] mx-auto px-5 md:px-8">
       {/* Your custom navigation component */}
       <nav className="flex items-center py-10 w-full">
         <div className="flex w-full justify-between items-center">
           <Link href="/" aria-label="Home">
             <p className="text-5xl font-heavy">亮</p>
           </Link>
-          <div>
+          <div className="hidden sm:block">
             {navigation.map((link, id) => (
               <Link
                 key={id}

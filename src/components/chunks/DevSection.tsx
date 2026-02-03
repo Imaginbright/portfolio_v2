@@ -24,6 +24,7 @@ const DevSection = () => {
             alt="Arrow signifying click to enter"
             width={151}
             height={167}
+            className="group-hover:animate-bounce"
           />
         </div>
         <h2 className="font-cursive text-[64px] leading-none -mt-4 text-transparent [-webkit-text-stroke:2px_white] -ml-12">

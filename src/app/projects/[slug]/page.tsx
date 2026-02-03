@@ -9,128 +9,143 @@ interface Props {
 
 const Projectpage = async ({ params }: Props) => {
   const { slug } = await params;
-
   const project = PROJECTS.find((p) => p.slug === slug);
 
-  if (!project) {
-    notFound();
-  }
+  if (!project) notFound();
 
-  // Find current index to determine next/prev projects
   const currentIndex = PROJECTS.findIndex((p) => p.slug === slug);
   const prevProject = PROJECTS[currentIndex - 1];
   const nextProject = PROJECTS[currentIndex + 1];
 
   return (
-    <div className="max-w-[1200px] mx-auto mt-20 px-4">
-      <div className="flex flex-col md:flex-row items-end justify-between gap-10 md:gap-20">
-        <div className="flex flex-col gap-6 flex-1 max-w-xl">
+    <div className="mt-4 md:mt-20">
+      {/* Header Section: Stacked on mobile, Side-by-side on tablet/desktop */}
+      <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10 md:gap-16">
+        {/* Project Info */}
+        <div className="flex flex-col gap-6 w-full flex-1">
           <div className="flex flex-col gap-2">
-            <h1 className="text-5xl leading-10">{project.title}</h1>
-            <h2 className="text-white/55 text-xl">{project.subtitle}</h2>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-balance">
+              {project.title}
+            </h1>
+            <h2 className="text-white/55 text-lg md:text-xl font-medium">
+              {project.subtitle}
+            </h2>
           </div>
 
-          <p className="text-[#979EA6] text-lg/6 leading-relaxed">
+          <p className="text-[#979EA6] text-base md:text-lg leading-relaxed max-w-prose">
             {project.description}
           </p>
 
-          <div className="flex flex-col gap-2 mt-4 text-[#979EA6]">
-            <div className="grid grid-cols-[50px_1fr]">
-              <span className="text-white/40">Role</span>
-              <span>{project.role}</span>
-            </div>
-            <div className="grid grid-cols-[50px_1fr]">
-              <span className="text-white/40">Year</span>
-              <span>{project.year}</span>
-            </div>
-
-            <div className="grid grid-cols-[50px_1fr]">
-              <span className="text-white/40">URL</span>
-              <Link
-                href={project.url}
-                target="_blank"
-                className="text-blue-400 hover:underline"
-              >
-                {project.url.replace("https://", "")}
-              </Link>
-            </div>
-            <div className="grid grid-cols-[50px_1fr]">
-              <span className="text-white/40">Stack</span>
-              <span>{project.stack.join(" | ")}</span>
-            </div>
+          {/* Meta Data Grid */}
+          <div className="flex flex-col gap-3 mt-4 text-[#979EA6] border-t border-white/5 pt-6">
+            <MetaRow label="Role" value={project.role} />
+            <MetaRow label="Year" value={project.year} />
+            <MetaRow
+              label="URL"
+              value={
+                <Link
+                  href={project.url}
+                  target="_blank"
+                  className="text-primary hover:underline transition-all"
+                >
+                  {project.url.replace("https://", "")}
+                </Link>
+              }
+            />
+            <MetaRow label="Stack" value={project.stack.join(" | ")} />
           </div>
         </div>
 
-        <div className="min-w-[390px] h-[480px] overflow-hidden rounded-2xl shrink-0">
+        {/* Main Hero Image: Aspect-ratio driven logic */}
+        <div className="relative w-full lg:w-[450px] aspect-4/5 md:aspect-video lg:aspect-3/4 overflow-hidden rounded-3xl shrink-0 bg-zinc-900">
           <Image
             src={project.images.main}
             alt={project.title}
-            loading="eager"
-            width={640}
-            height={480}
-            className="rounded-2xl h-full w-full object-cover object-[45%_center]"
+            priority
+            fill
+            className="object-cover object-[45%_center]"
           />
         </div>
       </div>
 
-      <Image
-        src={project.images.screenshot1}
-        alt=""
-        loading="eager"
-        width={640}
-        height={480}
-        quality={100}
-        className="rounded-2xl h-full w-full object-cover object-[45%_center] mt-14"
-      />
+      {/* Gallery Screenshots: Fixed the "Beanstalk" stretching */}
+      <div className="mt-16 md:mt-24 space-y-10 md:space-y-20 ">
+        <GalleryImage src={project.images.screenshot1} alt="Screenshot 1" />
+        <GalleryImage src={project.images.screenshot2} alt="Screenshot 2" />
+      </div>
 
-      <Image
-        src={project.images.screenshot2}
-        alt=""
-        loading="eager"
-        width={640}
-        height={480}
-        className="rounded-2xl h-full w-full object-cover object-[45%_center] mt-14 mb-14"
-      />
+      {/* Navigation: Responsive spacing and touch targets */}
+      <nav className="flex flex-col sm:flex-row gap-8 items-center justify-between mt-20 mb-20 py-10 border-t border-white/10">
+        <div className="flex items-center justify-between w-full sm:w-auto sm:gap-12">
+          {prevProject ? (
+            <Link
+              href={`/projects/${prevProject.slug}`}
+              className="text-sm uppercase tracking-widest hover:text-primary transition-colors py-2"
+            >
+              ← Prev
+            </Link>
+          ) : (
+            <span className="text-sm uppercase tracking-widest text-white/10">
+              ← Prev
+            </span>
+          )}
 
-      {/* Navigation Section */}
-      <div className="flex max-w-[600px] mx-auto items-center justify-between mb-20 text-sm uppercase tracking-widest border-t border-white/10 pt-10">
-        {prevProject ? (
           <Link
-            href={`/projects/${prevProject.slug}`}
-            className="hover:text-blue-400 transition-colors"
+            href="/development"
+            className="text-sm uppercase tracking-widest text-white/50 hover:text-white transition-colors py-2 sm:hidden"
           >
-            ← Previous
+            Portfolio
           </Link>
-        ) : (
-          <span className="text-white/20 cursor-not-allowed">← Previous</span>
-        )}
+
+          {nextProject ? (
+            <Link
+              href={`/projects/${nextProject.slug}`}
+              className="text-sm uppercase tracking-widest hover:text-primary transition-colors py-2"
+            >
+              Next →
+            </Link>
+          ) : (
+            <span className="text-sm uppercase tracking-widest text-white/10">
+              Next →
+            </span>
+          )}
+        </div>
 
         <Link
           href="/development"
-          className="text-white/50 hover:text-white transition-colors"
+          className="hidden sm:block text-sm uppercase tracking-widest text-white/50 hover:text-white transition-colors"
         >
           Browse portfolio
         </Link>
-
-        {nextProject ? (
-          <Link
-            href={`/projects/${nextProject.slug}`}
-            className="hover:text-blue-400 transition-colors"
-          >
-            Next →
-          </Link>
-        ) : (
-          <span className="text-white/20 cursor-not-allowed">Next →</span>
-        )}
-      </div>
+      </nav>
     </div>
   );
 };
 
+// Helper Components for cleaner code
+const MetaRow = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: React.ReactNode;
+}) => (
+  <div className="grid grid-cols-[80px_1fr] text-sm md:text-base">
+    <span className="text-white/30 font-medium uppercase tracking-tighter">
+      {label}
+    </span>
+    <span className="text-white/80">{value}</span>
+  </div>
+);
+
+const GalleryImage = ({ src, alt }: { src: string; alt: string }) => (
+  <div className="relative w-full aspect-square md:aspect-video rounded-3xl overflow-hidden bg-zinc-900 shadow-2xl">
+    <Image src={src} alt={alt} fill className="object-cover object-top" />
+  </div>
+);
+
 export default Projectpage;
 
 export async function generateStaticParams() {
-  return PROJECTS.map((project) => ({
-    slug: project.slug,
-  }));
+  return PROJECTS.map((project) => ({ slug: project.slug }));
 }
