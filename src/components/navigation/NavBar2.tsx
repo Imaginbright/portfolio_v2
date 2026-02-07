@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import { navigation } from "@/constants/nav";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Navbar = () => {
+const Navbar2 = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Close menu on scroll
+  // Close menu automatically on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (isOpen) setIsOpen(false);
@@ -20,26 +20,27 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className="flex items-center pt-10 pb-5 px-4 md:px-[38px] w-full">
-      <div className="flex xl:w-[78%] md:w-full w-full justify-between items-center xl:pr-8 md:pr-0">
+    <nav className="flex items-center py-10 w-full relative">
+      <div className="flex w-full justify-between items-center">
+        {/* Logo */}
         <Link href="/" aria-label="Home" onClick={() => setIsOpen(false)}>
           <p className="text-5xl font-heavy">亮</p>
         </Link>
 
-        {/* Desktop Links */}
+        {/* Desktop Links (Hidden on Mobile) */}
         <div className="hidden sm:block">
           {navigation.map((link, id) => (
             <Link
               key={id}
               href={link.url}
-              className="xl:mx-[30px] md:ml-[30px] font-lekton text-[24px] font-bold"
+              className="ml-[30px] font-lekton text-[24px] font-bold"
             >
               {link.title}
             </Link>
           ))}
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle Button (Hidden on Desktop) */}
         <button
           className="sm:hidden text-white outline-none"
           onClick={() => setIsOpen(!isOpen)}
@@ -55,7 +56,7 @@ const Navbar = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="fixed top-[100px] left-0 w-full bg-[#0f0e11] border-b border-neutral-800 sm:hidden z-50 overflow-hidden"
+            className="absolute top-full left-0 w-full bg-[#0f0e11] border-b border-neutral-800 sm:hidden z-50 overflow-hidden"
           >
             <div className="flex flex-col p-8 gap-8">
               {navigation.map((link, id) => (
@@ -76,4 +77,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar2;

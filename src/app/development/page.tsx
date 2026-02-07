@@ -1,30 +1,13 @@
-import { navigation } from "@/constants/nav";
 import { WebProjects } from "../../constants/WebProjects.js";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Navbar2 from "@/components/navigation/NavBar2";
 
 const page = () => {
   return (
     <div className="max-w-[1600px] mx-auto w-full px-4 md:px-8 xl:px-12">
-      <nav className="flex items-center py-10 w-full">
-        <div className="flex w-full justify-between items-center">
-          <Link href="/" aria-label="Home">
-            <p className="text-5xl font-heavy">亮</p>
-          </Link>
-          <div>
-            {navigation.map((link, id) => (
-              <Link
-                key={id}
-                href={link.url}
-                className="ml-[30px] font-lekton text-[24px] font-bold"
-              >
-                {link.title}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </nav>
+      <Navbar2 />
 
       <main className="h-dvh w-full flex flex-col">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-16 gap-y-8 md:gap-y-12 xl:gap-y-16 pb-20">

@@ -7,8 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
 import Button from "@/components/buttons/Button";
-import Link from "next/link";
-import { navigation } from "@/constants/nav";
+import Navbar2 from "@/components/navigation/NavBar2";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "Required"),
@@ -64,27 +63,10 @@ const ContactForm = () => {
     "text-[10px] text-red-500 mt-1 uppercase tracking-wider block";
 
   return (
-    <section className="w-full flex flex-col items-center justify-center p-4 md:p-6">
+    <section className="w-full flex flex-col items-center justify-center px-4 md:p-6">
       <div className="max-w-5xl w-full flex flex-col">
         {/* Navigation */}
-        <nav className="flex items-center pb-8 pt-4 w-full">
-          <div className="flex w-full justify-between items-center">
-            <Link href="/" aria-label="Home">
-              <p className="text-5xl font-heavy text-white">亮</p>
-            </Link>
-            <div className="hidden sm:flex items-center">
-              {navigation.map((link, id) => (
-                <Link
-                  key={id}
-                  href={link.url}
-                  className="ml-[30px] font-lekton text-[24px] font-bold text-white hover:text-neutral-400 transition-colors"
-                >
-                  {link.title}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </nav>
+        <Navbar2 />
 
         {/* The Form Card */}
         <div className="w-full bg-[#111111] rounded-2xl overflow-hidden flex flex-col lg:flex-row border border-neutral-800 shadow-xl">
