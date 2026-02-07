@@ -36,7 +36,7 @@ const PortfolioGrid = async () => {
                 impact.
               </p>
               <Button
-                href="#contactMe"
+                href="/contact"
                 className="mt-8 md:mt-10 h4 text-black rounded-2xl border border-black bg-primary w-full shadow-sharp sm:w-fit"
               >
                 Get in touch
@@ -86,18 +86,26 @@ const PortfolioGrid = async () => {
         </aside>
 
         {/* Dev Portfolio */}
-        {/* Tablet: 6/12 | Desktop: 9/24 */}
-        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2 overflow-hidden">
-          <Link href="/development" className="absolute inset-0 z-10">
-            <span className="sr-only">View Project</span>
+        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
+          {/* We wrap the component in a div that is forced to be the exact size of the rounded section */}
+          <div className="absolute inset-0">
             <DevSection />
+          </div>
+
+          <Link href="/development" className="absolute inset-0 z-20">
+            <span className="sr-only">View Project</span>
           </Link>
         </section>
 
         {/* 3D Portfolio */}
-        {/* Tablet: 6/12 | Desktop: 9/24 */}
         <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2 overflow-hidden">
+          {/* 1. Content */}
           <ThreeSection />
+
+          {/* 2. Link Overlay */}
+          <Link href="/development" className="absolute inset-0 z-20">
+            <span className="sr-only">View Project</span>
+          </Link>
         </section>
       </div>
     </main>

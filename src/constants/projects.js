@@ -7,7 +7,7 @@ export const PROJECTS = [
       "Brightbase is a student-centric question and answer platform that connects learners with answers — modeled after community sites like Reddit but focused on academic help. Students can ask questions,browse answers, and engage with a knowledge-sharing community.",
     role: "Full Stack Developer",
     year: "2026",
-    url: "https://brightsbase.com",
+    url: "https://brightsbase.vercel.app/",
     stack: ["Next.Js", "Tailwind CSS", "MongoDB Atlas", "Node.JS"],
     images: {
       main: "/web/bb.png",
