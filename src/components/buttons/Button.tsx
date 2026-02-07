@@ -6,6 +6,7 @@ interface Props {
   children: React.ReactNode;
   px?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const Button = ({

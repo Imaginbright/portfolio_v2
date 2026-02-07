@@ -23,7 +23,7 @@ const DevSection = () => {
             DEV
           </h1>
 
-          <div className="relative w-16 sm:w-24 md:w-32 xl:w-[151px] aspect-[151/167] shrink-0">
+          <div className="relative w-16 sm:w-24 md:w-32 xl:w-[151px] aspect-151/167 shrink-0">
             <Image
               src="/icons/Rightarrow.svg"
               alt="Arrow"

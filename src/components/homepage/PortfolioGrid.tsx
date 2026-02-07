@@ -37,7 +37,7 @@ const PortfolioGrid = async () => {
               </p>
               <Button
                 href="/contact"
-                className="mt-8 md:mt-10 h4 text-black rounded-2xl border border-black bg-primary w-full shadow-sharp sm:w-fit"
+                className="mt-8 md:mt-10 py-3 font-bold text-black rounded-2xl border border-black bg-primary hover:bg-primary/80 w-full shadow-sharp sm:w-fit"
               >
                 Get in touch
               </Button>
@@ -98,11 +98,12 @@ const PortfolioGrid = async () => {
         </section>
 
         {/* 3D Portfolio */}
-        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border2 overflow-hidden">
-          {/* 1. Content */}
-          <ThreeSection />
+        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
+          {/* The Fix: Force the component to match the parent's exact size */}
+          <div className="absolute inset-0">
+            <ThreeSection />
+          </div>
 
-          {/* 2. Link Overlay */}
           <Link href="/development" className="absolute inset-0 z-20">
             <span className="sr-only">View Project</span>
           </Link>

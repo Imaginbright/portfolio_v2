@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 // 1. Import both fonts
 import localFont from "next/font/local";
 import "./globals.css";
@@ -50,6 +51,7 @@ export default function RootLayout({
         className={`${lekton.variable} ${luckiest.variable} ${hiragino.variable} antialiased`}
       >
         {children}
+        <Toaster position="bottom-right" richColors />
       </body>
     </html>
   );

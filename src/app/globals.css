@@ -1,20 +1,48 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
+/* 1. THEME DEFINITION */
 @theme {
-  /* Ensure there are no typos here */
-
-  /* Colors */
+  /* Brand Colors */
   --color-black: #0f0e11;
   --color-primary: #ff9d52;
   --color-card: #1a1a1f;
 
+  /* Shadows */
   --shadow-sharp: 3px 3px 0.3px rgba(151, 158, 166, 0.5);
   --shadow-sharper: 6px 8px 0.3px rgba(151, 158, 166, 0.5);
 
-  --background-image: url("/images/line.png");
+  /* Shadcn / Radix Mapping - Mapping to your brand variables */
+  --radius: 0.625rem;
+  --color-background: var(--color-black);
+  --color-foreground: #ffffff;
+  --color-card-bg: var(--color-card);
+  --color-card-foreground: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-primary-brand: var(--color-primary);
+
+  /* Radix UI Standard Mappings (for Sonner/Toasts) */
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-muted: rgba(255, 255, 255, 0.05);
+  --color-muted-foreground: #979ea6;
 }
 
+/* 2. GLOBAL STYLES */
+body {
+  font-family: var(--font-lekton), monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0f0e11;
+  background-image: url("/images/line.png");
+  color: white;
+  width: 100dvw;
+  overflow-x: hidden;
+}
+
+/* 3. CUSTOM UTILITIES */
 @utility font-lekton {
   font-family: var(--font-lekton), monospace;
 }
@@ -24,18 +52,7 @@
 }
 
 @utility font-heavy {
-  font-family: var(--font-hiragino), heavy;
-}
-
-body {
-  font-family: var(--font-lekton), monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-black);
-  background-image: var(--background-image);
-  color: white;
-  width: 100dvw;
-  overflow-x: hidden;
+  font-family: var(--font-hiragino), sans-serif;
 }
 
 @layer utilities {
