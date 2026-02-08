@@ -11,6 +11,7 @@ interface MDXFrontmatter {
   date: string;
   category: string;
   thumbnail: string;
+  featured: boolean;
 }
 
 export interface IPost {
@@ -20,6 +21,7 @@ export interface IPost {
   date: string;
   category: string;
   thumbnail: string;
+  featured: boolean;
 }
 
 export function getAllPosts(): IPost[] {
@@ -36,6 +38,8 @@ export function getAllPosts(): IPost[] {
     return {
       slug,
       ...frontmatter,
+      // Ensured featured is a boolean even if i miss it in MDX
+      featured: frontmatter.featured || false,
     };
   });
 }
@@ -55,23 +59,16 @@ export function getPostData(slug: string) {
   };
 }
 
-export function getFeaturedPostsByCategory(
-  category: string,
-  limit: number = 6,
-): IPost[] {
+export function getFeaturedPosts(limit: number = 6): IPost[] {
   const allPosts = getAllPosts();
 
-  // 1. Filter: Keep only posts where the category matches exactly
-  // I used .toLowerCase() to ensure "Featured" matches "featured"
-  const filteredPosts = allPosts.filter(
-    (post) => post.category.toLowerCase() === category.toLowerCase(),
-  );
+  // Filter based on the 'featured' boolean flag
+  const featuredPosts = allPosts.filter((post) => post.featured === true);
 
-  // 2. Sort: I ensured the newest featured posts are first
-  filteredPosts.sort(
+  // Sort by newest date
+  featuredPosts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
-  // 3. Slice: Only return the requested number of items
-  return filteredPosts.slice(0, limit);
+  return featuredPosts.slice(0, limit);
 }

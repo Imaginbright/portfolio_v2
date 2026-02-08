@@ -5,68 +5,73 @@ import Stack from "../chunks/Stack";
 import ThreeSection from "../chunks/ThreeSection";
 import DevSection from "../chunks/DevSection";
 import FeaturedSidebar from "../FeaturedSidebar";
+import { Suspense } from "react";
+import FeaturedSidebarSkeleton from "@/components/ui/FeaturedSidebarSkeleton";
 
-import { getFeaturedPostsByCategory } from "@/lib/blog";
+import { getFeaturedPosts } from "@/lib/blog";
 import Link from "next/link";
 
 // 2. I made the component async which is required to fetch data
 const PortfolioGrid = async () => {
   // 3. I defined the variable here
   // This gets the posts labeled "featured" from my MDX files. Maximum of 6 for now
-  const featuredPosts = getFeaturedPostsByCategory("featured", 6);
+  const featuredPosts = getFeaturedPosts(6);
   return (
     <main className="min-h-screen w-full">
       <div className="grid grid-cols-1 md:grid-cols-12 xl:grid-cols-24 gap-4 md:gap-6 px-4 md:px-8 xl:px-[38px]">
-        {/* Profile */}
-        <section className="md:col-span-12 xl:col-span-13 min-h-fit xl:min-h-[392px] rounded-[30px]  border-2 border-zinc-800 p-6 md:p-9 bg-card">
-          <div className="flex flex-col lg:flex-row gap-8">
-            <div className="flex flex-1 flex-col">
-              <h1 className="font-bold text-3xl md:text-4xl xl:text-[40px]/12 leading-tight text-balance">
-                Okonkwo Somto
-              </h1>
-              <h4 className="text-white/55 text-lg md:text-xl">
-                @imaginbright
-              </h4>
+        {/* Profile Section */}
+        <section className="md:col-span-12 xl:col-span-13 min-h-fit xl:min-h-[392px] rounded-[30px] border-2 border-zinc-800 p-6 md:p-9 bg-card flex flex-col">
+          <div className="flex flex-col lg:flex-row gap-8 xl:h-full">
+            {/* Left Column */}
+            <div className="flex flex-1 flex-col xl:justify-between">
+              <div>
+                <h1 className="font-bold text-3xl md:text-4xl xl:text-[40px]/12 leading-tight text-balance">
+                  Okonkwo Somto
+                </h1>
+                <h4 className="text-white/55 text-lg md:text-xl">
+                  @imaginbright
+                </h4>
 
-              <p className="mt-6 md:mt-9 text-[#979EA6] md:text-lg xl:text-[20px]/6 leading-relaxed max-w-prose">
-                I’m a Web Developer dedicated to building seamless,
-                high-performing websites that solve real problems. With
-                expertise in React, Next.js, and GSAP, I transform ideas into
-                responsive, engaging digital experiences that leave a lasting
-                impact.
-              </p>
+                <p className="mt-6 md:mt-9 text-[#979EA6] md:text-lg xl:text-[20px]/6 leading-relaxed max-w-prose">
+                  I’m a Web Developer dedicated to building seamless,
+                  high-performing websites that solve real problems. With
+                  expertise in React, Next.js, and GSAP, I transform ideas into
+                  responsive, engaging digital experiences that leave a lasting
+                  impact.
+                </p>
+              </div>
+
               <Button
                 href="/contact"
-                className="mt-8 md:mt-10 py-3 font-bold text-black rounded-2xl border border-black bg-primary hover:bg-primary/80 w-full shadow-sharp sm:w-fit"
+                className="mt-8 md:mt-10 py-3 font-bold text-black rounded-2xl xl:rounded-lg border border-black bg-primary hover:bg-primary/80 w-full shadow-sharp sm:w-fit"
               >
                 Get in touch
               </Button>
             </div>
 
-            <div className="flex flex-col items-center lg:items-end shrink-0">
+            {/* Right Column */}
+            <div className="flex flex-col items-center lg:items-end xl:items-start shrink-0 xl:justify-between">
               <Image
                 src="/images/profile.png"
                 alt="Profile Picture"
                 width={164}
                 height={220}
                 priority
+                fetchPriority="high"
                 className="pt-2 object-contain w-32 md:w-41 xl:w-[164px]"
               />
 
-              <div className="flex gap-3 mt-6 items-center bg-zinc-800/50 px-4 py-2 rounded-full lg:bg-transparent lg:p-0">
-                <div className="bg-primary rounded-full w-2 h-2 animate-pulse"></div>
-                <p className="text-[12px]">Available for work</p>
+              {/* xl:h-[52px] matches the height of your py-3 button. 
+          xl:justify-start forces the badge to the top plane of that height.
+      */}
+              <div className="flex flex-col items-center lg:items-end xl:items-start mt-6 lg:mt-0 xl:h-[52px] xl:justify-start">
+                <div className="flex gap-3 items-center bg-zinc-800/50 px-4 py-2 rounded-full lg:bg-transparent lg:p-0">
+                  <div className="bg-primary rounded-full w-2 h-2 animate-pulse"></div>
+                  <p className="text-[12px]">Available for work</p>
+                </div>
+
+                <p className="text-[12px] opacity-70 mt-1 pl-5">19/11/2025</p>
               </div>
-
-              <p className="text-[12px] opacity-40 mt-1">19/11/2025</p>
-
-              <Image
-                src="/icons/Leftarrow.svg"
-                alt="Arrow pointing to text that says that I'm Available for work"
-                width={31}
-                height={38}
-                className="hidden xl:block ml-32"
-              />
             </div>
           </div>
         </section>
@@ -78,9 +83,11 @@ const PortfolioGrid = async () => {
 
         {/* Featured Section */}
         <aside className="col-span-1 md:col-span-7 xl:col-span-6 xl:row-span-2 relative min-h-fit md:min-h-[300px] xl:min-h-[768px]">
-          <div className="w-full h-full rounded-[30px] border-2 border-zinc-800 p-5 bg-card overflow-y-auto no-scrollbar xl:absolute xl:-top-18 xl:bottom-0 xl:h-auto xl:overflow-hidden">
-            <FeaturedSidebar posts={featuredPosts} />
-          </div>
+          <Suspense fallback={<FeaturedSidebarSkeleton />}>
+            <div className="w-full h-full rounded-[30px] border-2 border-zinc-800 p-5 bg-card overflow-y-auto no-scrollbar xl:absolute xl:-top-18 xl:bottom-0 xl:h-auto xl:overflow-hidden">
+              <FeaturedSidebar posts={featuredPosts} />
+            </div>
+          </Suspense>
         </aside>
 
         {/* Dev Portfolio */}
@@ -100,7 +107,7 @@ const PortfolioGrid = async () => {
             <ThreeSection />
           </div>
 
-          <Link href="/development" className="absolute inset-0 z-20">
+          <Link href="/3d" className="absolute inset-0 z-20">
             <span className="sr-only">View Project</span>
           </Link>
         </section>
