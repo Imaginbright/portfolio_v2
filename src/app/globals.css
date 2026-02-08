@@ -75,3 +75,22 @@ body {
     @apply text-[1.125rem] leading-6.5;
   }
 }
+
+/* Container for the 20 staggered blocks */
+.transition-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Individual blocks */
+.block {
+  flex: 1;
+  height: 100%;
+  background-color: #ff9d52; /* Match your primary text/accent color */
+  transform: scaleX(0);
+}
