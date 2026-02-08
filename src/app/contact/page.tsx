@@ -55,7 +55,7 @@ const ContactForm = () => {
     }
   };
 
-  // FIX: text-base (16px) prevents iOS auto-zoom; md:text-sm keeps it small on desktop
+  // Use text base on mobile devices so the page doesn't zoom in cause the text is 14px
   const inputClasses =
     "w-full bg-transparent border-b border-neutral-700 py-2 text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition-colors font-lekton text-base md:text-sm";
 
@@ -68,7 +68,7 @@ const ContactForm = () => {
         {/* Navigation */}
         <Navbar2 />
 
-        {/* The Form Card */}
+        {/* Form Card */}
         <div className="w-full bg-[#111111] rounded-2xl overflow-hidden flex flex-col lg:flex-row border border-neutral-800 shadow-xl">
           <div className="flex-1 p-6 md:p-10 lg:p-12">
             <header className="mb-8">

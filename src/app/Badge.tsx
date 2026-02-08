@@ -4,10 +4,10 @@ import React from "react";
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: React.ReactNode;
-  icon?: React.ReactNode | string; // Can be a URL string or a Component
+  icon?: React.ReactNode | string;
   width: number;
   height: number;
-  px?: string; // Changed to string to allow tailwind classes like "px-6"
+  px?: string;
 }
 
 const Badge = ({
@@ -20,7 +20,6 @@ const Badge = ({
   type = "button",
   ...rest
 }: Props) => {
-  // Base classes with rounded-full for pill shape and flex for layout
   const classes = `
     relative inline-flex items-center justify-center 
     h-[33px] font-mono rounded-[10px]

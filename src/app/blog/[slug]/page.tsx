@@ -15,7 +15,7 @@ export default async function PostPage({
 
   return (
     <MDXLayout>
-      {/* Optional: Render your metadata here */}
+      {/* I will render metadata here */}
       <header className="mb-8">
         <h1 className="text-4xl font-bold">{post.frontmatter.title}</h1>
         <p className="text-gray-400">

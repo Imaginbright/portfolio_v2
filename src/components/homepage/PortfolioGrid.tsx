@@ -9,10 +9,10 @@ import FeaturedSidebar from "../FeaturedSidebar";
 import { getFeaturedPostsByCategory } from "@/lib/blog";
 import Link from "next/link";
 
-// 2. MAKE COMPONENT ASYNC (Required to fetch data)
+// 2. I made the component async which is required to fetch data
 const PortfolioGrid = async () => {
-  // 3. DEFINE THE VARIABLE HERE
-  // This gets the posts labeled "featured" from your MDX files
+  // 3. I defined the variable here
+  // This gets the posts labeled "featured" from my MDX files. Maximum of 6 for now
   const featuredPosts = getFeaturedPostsByCategory("featured", 6);
   return (
     <main className="min-h-screen w-full">
@@ -76,18 +76,15 @@ const PortfolioGrid = async () => {
           <Stack />
         </section>
 
-        {/* Featured */}
-        <aside className="md:col-span-7 xl:col-span-6 xl:row-span-2 relative">
-          {/* 2. THE VISUAL: Absolute positioned to overshoot the top */}
-
-          <div className="w-full h-full rounded-[30px] border-2 border-zinc-800 p-5 bg-card xl:absolute xl:-top-18 xl:bottom-0 xl:h-auto overflow-hidden">
+        {/* Featured Section */}
+        <aside className="col-span-1 md:col-span-7 xl:col-span-6 xl:row-span-2 relative min-h-fit md:min-h-[300px] xl:min-h-[768px]">
+          <div className="w-full h-full rounded-[30px] border-2 border-zinc-800 p-5 bg-card overflow-y-auto no-scrollbar xl:absolute xl:-top-18 xl:bottom-0 xl:h-auto xl:overflow-hidden">
             <FeaturedSidebar posts={featuredPosts} />
           </div>
         </aside>
 
         {/* Dev Portfolio */}
         <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
-          {/* We wrap the component in a div that is forced to be the exact size of the rounded section */}
           <div className="absolute inset-0">
             <DevSection />
           </div>
@@ -99,7 +96,6 @@ const PortfolioGrid = async () => {
 
         {/* 3D Portfolio */}
         <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
-          {/* The Fix: Force the component to match the parent's exact size */}
           <div className="absolute inset-0">
             <ThreeSection />
           </div>

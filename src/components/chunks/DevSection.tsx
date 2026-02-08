@@ -3,9 +3,9 @@ import Image from "next/image";
 
 const DevSection = () => {
   return (
-    // We use h-full and w-full here to match the 'absolute inset-0' wrapper
+    // I used h-full and w-full here to match the 'absolute inset-0' wrapper
     <div className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden">
-      {/* Background Image: 'fill' now correctly targets the 273px parent height */}
+      {/* Targets parent height */}
       <Image
         src="/images/portfolio2.png"
         alt="Development Portfolio Image"
@@ -16,7 +16,7 @@ const DevSection = () => {
         className="object-cover brightness-[0.28] transition-transform duration-700 group-hover:scale-105"
       />
 
-      {/* Content Container: Centered on top of the full-bleed image */}
+      {/* Centered on top of image */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
         <div className="flex items-center gap-2 md:gap-4">
           <h1 className="text-6xl sm:text-8xl md:text-9xl xl:text-[120px] leading-none font-cursive text-transparent [-webkit-text-stroke:1px_white] md:[-webkit-text-stroke:2px_white] transition-all">

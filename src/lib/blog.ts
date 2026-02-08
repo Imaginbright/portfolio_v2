@@ -4,7 +4,7 @@ import matter from "gray-matter";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
-// 1. Define exactly what is in your MDX frontmatter
+// 1. Defines exactly what is in my MDX frontmatter
 interface MDXFrontmatter {
   title: string;
   author: string;
@@ -62,12 +62,12 @@ export function getFeaturedPostsByCategory(
   const allPosts = getAllPosts();
 
   // 1. Filter: Keep only posts where the category matches exactly
-  // We use .toLowerCase() to ensure "Featured" matches "featured"
+  // I used .toLowerCase() to ensure "Featured" matches "featured"
   const filteredPosts = allPosts.filter(
     (post) => post.category.toLowerCase() === category.toLowerCase(),
   );
 
-  // 2. Sort: Ensure newest featured posts are first
+  // 2. Sort: I ensured the newest featured posts are first
   filteredPosts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );

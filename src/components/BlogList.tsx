@@ -93,7 +93,7 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
             href={`/blog/${p.slug}`}
             className="group flex flex-col w-full"
           >
-            {/* Image Container - Now distinct with its own border/radius */}
+            {/* Image Container, made it distinct with its own border/radius */}
             <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
               <Image
                 src={p.thumbnail}

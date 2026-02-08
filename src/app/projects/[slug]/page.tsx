@@ -19,7 +19,7 @@ const Projectpage = async ({ params }: Props) => {
 
   return (
     <div className="mt-4 md:mt-20">
-      {/* Header Section: Stacked on mobile, Side-by-side on tablet/desktop */}
+      {/* Header Section which will be stacked on mobile, Side-by-side on tablet/desktop */}
       <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10 md:gap-16">
         {/* Project Info */}
         <div className="flex flex-col gap-6 w-full flex-1">
@@ -56,7 +56,7 @@ const Projectpage = async ({ params }: Props) => {
           </div>
         </div>
 
-        {/* Main Hero Image: Aspect-ratio driven logic */}
+        {/* Main Hero Image with aspect ratio logic*/}
         <div className="relative w-full lg:w-[450px] aspect-4/5 md:aspect-video lg:aspect-3/4 overflow-hidden rounded-3xl shrink-0 bg-zinc-900">
           <Image
             src={project.images.main}

@@ -27,7 +27,7 @@ const page = () => {
                    /> 
                 */}
                 <div className="flex items-center justify-center h-full text-zinc-500">
-                  {/* Placeholder text (remove this when you add real images) */}
+                  {/* Placeholder text, i need to remove when i add images */}
                   {project.title} Preview
                 </div>
               </section>
