@@ -2,32 +2,33 @@ export const WebProjects = [
   {
     id: 1,
     title: "Brightsbase",
-    image: "/path-to-image.jpg",
+    image: "/web/bb.png",
     link: "/projects/brightsbase",
   },
   {
     id: 2,
-    title: "BrainWave",
-    image: "/path-to-image.jpg",
-    link: "/projects/brainwave",
-  },
-  {
-    id: 4,
     title: "CineTrack",
-    image: "/path-to-image.jpg",
+    image: "/web/ct.png",
     link: "/projects/cinetrack",
   },
   {
     id: 3,
+    title: "BrainWave",
+    image: "/web/bw.png",
+    link: "/projects/brainwave",
+  },
+
+  {
+    id: 4,
     title: "Portfolio",
-    image: "/path-to-image.jpg",
-    link: "/projects/portfolio",
+    image: "/web/pt.png",
+    link: "/projects/portfolio-v1",
   },
 
   {
     id: 5,
-    title: "Apple Store",
-    image: "/path-to-image.jpg",
-    link: "/projects/apple-store",
+    title: "iPhone 15 Pro",
+    image: "/web/ip.png",
+    link: "/projects/apple-iphone-clone",
   },
 ];

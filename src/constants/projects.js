@@ -49,4 +49,37 @@ export const PROJECTS = [
       screenshot2: "/web/ctss2.png",
     },
   },
+  {
+    slug: "apple-iphone-clone",
+    title: "iPhone 15 Pro",
+    subtitle: "High-Fidelity Apple Clone",
+    description:
+      "A technical recreation of Apple's iPhone 15 Pro landing page. This project served as a deep dive into 3D web graphics and complex animation sequencing. I integrated Three.js to render interactive phone models while using GSAP to handle the high-precision scroll-based transformations that Apple is known for.",
+    role: "Frontend Developer",
+    year: "2025",
+    url: "https://iphone-clone-landing-page.vercel.app/", // Add your link
+    stack: ["React", "Three.Js", "GSAP", "Tailwind CSS"],
+    images: {
+      main: "/web/ip.png",
+      screenshot1: "/web/ips1.png",
+      screenshot2: "/web/ips2.png",
+    },
+  },
+
+  {
+    slug: "portfolio-v1",
+    title: "Portfolio V1",
+    subtitle: "Legacy Personal Site",
+    description:
+      "My first professional portfolio built with Next.js. This project was my initial playground for mastering Tailwind CSS and learning how to build a cohesive personal brand. It features a clean, minimal aesthetic with custom-built project galleries and responsive layouts that set the foundation for my current work.",
+    role: "Frontend Developer",
+    year: "2025",
+    url: "https://my-portfolio-imaginbrights-projects.vercel.app/", // Add your link
+    stack: ["Next.Js", "GSAP", "Tailwind CSS"],
+    images: {
+      main: "/web/pt.png",
+      screenshot1: "/web/pts1.png",
+      screenshot2: "/web/pts2.png",
+    },
+  },
 ];
