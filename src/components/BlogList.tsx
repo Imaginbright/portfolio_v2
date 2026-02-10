@@ -30,9 +30,16 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
   return (
     <div className="container mx-auto px-6 md:px-20 py-10">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row gap-4 mb-12 items-center justify-between">
-        <Link href="/" aria-label="Home">
-          <p className="text-5xl font-black">亮</p>
+      <div className="flex flex-col md:flex-row gap-6 mb-12 md:items-center justify-between">
+        {/* Consistent Back Navigation */}
+        <Link
+          href="/"
+          className="group flex items-center gap-2 text-zinc-500 hover:text-primary transition-colors font-lekton text-sm md:text-base w-fit"
+        >
+          <span className="transition-transform group-hover:-translate-x-1">
+            ←
+          </span>
+          Back to home
         </Link>
 
         <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
@@ -45,7 +52,7 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
             <input
               type="text"
               placeholder="Search posts..."
-              className="w-full pl-10 pr-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/30 focus:outline-none focus:border-zinc-600 transition-colors"
+              className="w-full pl-10 pr-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/30 focus:outline-none focus:border-zinc-600 transition-colors text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -57,7 +64,7 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="w-full md:w-48 flex items-center justify-between px-4 py-2 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-colors"
             >
-              <span className="truncate text-zinc-400">
+              <span className="truncate text-zinc-400 text-sm font-lekton">
                 {selectedCategory === "All" ? "Category" : selectedCategory}
               </span>
               <ChevronDown
@@ -66,20 +73,27 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
               />
             </button>
             {isDropdownOpen && (
-              <div className="absolute z-20 w-full mt-2 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl overflow-hidden">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    className="w-full text-left px-4 py-2.5 hover:bg-zinc-800 transition-colors text-sm capitalize"
-                    onClick={() => {
-                      setSelectedCategory(cat);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
+              <>
+                {/* Backdrop to close dropdown on mobile when clicking outside */}
+                <div
+                  className="fixed inset-0 z-10 md:hidden"
+                  onClick={() => setIsDropdownOpen(false)}
+                />
+                <div className="absolute z-20 w-full mt-2 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl overflow-hidden">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      className="w-full text-left px-4 py-2.5 hover:bg-zinc-800 transition-colors text-sm capitalize font-lekton text-zinc-400 hover:text-primary"
+                      onClick={() => {
+                        setSelectedCategory(cat);
+                        setIsDropdownOpen(false);
+                      }}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -93,28 +107,30 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
             href={`/blog/${p.slug}`}
             className="group flex flex-col w-full"
           >
-            {/* Image Container, made it distinct with its own border/radius */}
+            {/* Image Container */}
             <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
               <Image
                 src={p.thumbnail}
                 alt={p.title}
                 fill
-                className="group-hover:scale-105 duration-500 transition-transform object-cover"
+                className="group-hover:scale-105 duration-500 transition-transform object-cover opacity-80 group-hover:opacity-100"
               />
             </div>
 
-            {/* Text Content - Separated by a margin, no shared container background */}
+            {/* Text Content */}
             <div className="mt-5 flex flex-col flex-1 px-1">
-              <p className="text-[10px] tracking-widest text-primary font-bold mb-3 uppercase opacity-80">
+              <p className="text-[10px] tracking-widest text-primary font-bold mb-3 uppercase opacity-80 font-lekton">
                 {p.category}
               </p>
 
-              <h2 className="text-xl font-bold leading-snug mb-3 line-clamp-2">
+              <h2 className="text-xl font-bold leading-snug mb-3 line-clamp-2 text-white/90 group-hover:text-white transition-colors">
                 {p.title}
               </h2>
 
-              <div className="flex items-center text-zinc-500 text-xs mt-auto pt-2 space-x-3">
-                <span className="font-medium text-zinc-400">{p.author}</span>
+              <div className="flex items-center text-zinc-500 text-[11px] mt-auto pt-2 space-x-3 font-lekton">
+                <span className="font-medium text-zinc-400 uppercase tracking-wider">
+                  {p.author}
+                </span>
                 <span className="w-1 h-1 rounded-full bg-zinc-700" />
                 <span>{p.date}</span>
               </div>
@@ -126,7 +142,9 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
       {/* Empty State */}
       {filteredPosts.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-zinc-500 text-lg">No posts match your search.</p>
+          <p className="text-zinc-500 text-lg font-lekton">
+            No posts match your search.
+          </p>
         </div>
       )}
     </div>

@@ -4,7 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar3 from "@/components/navigation/NavBar3";
 import ScrollToTop from "@/components/navigation/ScrollToTop";
+import NewsletterForm from "@/components/blog/NewsletterForm";
 import remarkGfm from "remark-gfm";
+import { getBlurData } from "@/lib/blurhash";
+
+interface ImageProps {
+  src: string;
+  alt?: string;
+  blurDataURL?: string; // New prop
+}
 
 const contentStyles = `
   xl:col-span-8 
@@ -25,8 +33,8 @@ const contentStyles = `
   .replace(/\s+/g, " ")
   .trim();
 
-const mdxComponents = {
-  img: (props: { src: string; alt?: string }) => (
+const mdxComponents = (blurDataURL?: string) => ({
+  img: (props: ImageProps) => (
     <span className="block my-12">
       <span className="relative block overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 leading-0">
         <Image
@@ -34,7 +42,11 @@ const mdxComponents = {
           alt={props.alt || "Blog Image"}
           width={1200}
           height={675}
-          unoptimized
+          placeholder="blur" // Enable blur
+          blurDataURL={
+            blurDataURL ||
+            "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          }
           className="w-full h-auto object-cover m-0! rounded-lg!"
         />
       </span>
@@ -50,7 +62,7 @@ const mdxComponents = {
       {children}
     </div>
   ),
-};
+});
 
 export default async function PostPage({
   params,
@@ -60,10 +72,12 @@ export default async function PostPage({
   const { slug } = await params;
   const post = getPostData(slug);
 
+  const heroBlur = await getBlurData(post.frontmatter.thumbnail);
+
   const allPosts = getAllPosts();
   const relatedPosts = allPosts
     .filter((p) => p.slug !== slug && p.category === post.frontmatter.category)
-    .slice(0, 4);
+    .slice(0, 2);
 
   return (
     <article className="min-h-screen bg-black text-white pb-24 relative">
@@ -115,6 +129,8 @@ export default async function PostPage({
             src={post.frontmatter.thumbnail || "/images/keyboard.png"}
             alt={post.frontmatter.title}
             fill
+            placeholder="blur"
+            blurDataURL={heroBlur} // Hero image now blurs up!
             className="object-cover opacity-90"
             priority
           />
@@ -124,52 +140,61 @@ export default async function PostPage({
           <div className={contentStyles}>
             <MDXRemote
               source={post.content}
-              components={mdxComponents}
+              // Pass the heroBlur as a fallback for MDX images
+              // or generate specific ones for content (more complex)
+              components={mdxComponents(heroBlur)}
               options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
             />
 
-            {/* MOBILE ONLY RELATED POSTS - Appears only on small screens */}
-            {relatedPosts.length > 0 && (
-              <div className="mt-20 xl:hidden">
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-8 border-b border-zinc-800 pb-4">
-                  Related posts
-                </h4>
-                <div className="grid grid-cols-1 gap-6">
-                  {relatedPosts.map((related, index) => (
-                    <Link
-                      key={related.slug}
-                      href={`/blog/${related.slug}`}
-                      className="flex items-center gap-4 group"
-                    >
-                      <div className="relative shrink-0">
-                        <div className="relative h-16 w-24 bg-zinc-900 rounded-xl overflow-hidden border border-white/5">
-                          <Image
-                            src={related.thumbnail}
-                            alt={related.title}
-                            fill
-                            className="object-cover opacity-80"
-                          />
+            {/* MOBILE ONLY NAVIGATION SECTION */}
+            <div className="mt-20 xl:hidden space-y-16">
+              {/* Related Posts */}
+              {relatedPosts.length > 0 && (
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-8 border-b border-zinc-800 pb-4">
+                    Related &ldquo;{post.frontmatter.category}&rdquo;
+                  </h4>
+                  <div className="grid grid-cols-1 gap-6">
+                    {relatedPosts.map((related, index) => (
+                      <Link
+                        key={related.slug}
+                        href={`/blog/${related.slug}`}
+                        className="flex items-center gap-4 group"
+                      >
+                        <div className="relative shrink-0">
+                          <div className="relative h-16 w-24 bg-zinc-900 rounded-xl overflow-hidden border border-white/5">
+                            <Image
+                              src={related.thumbnail}
+                              alt={related.title}
+                              fill
+                              className="object-cover opacity-80"
+                            />
+                          </div>
+                          <div className="absolute -bottom-1.5 -left-1.5 w-7 h-7 bg-zinc-100 rounded-full flex items-center justify-center border-4 border-black z-20">
+                            <span className="text-black font-bold text-[11px]">
+                              {index + 1}
+                            </span>
+                          </div>
                         </div>
-                        <div className="absolute -bottom-1.5 -left-1.5 w-7 h-7 bg-zinc-100 rounded-full flex items-center justify-center border-4 border-black z-20">
-                          <span className="text-black font-bold text-[11px]">
-                            {index + 1}
+                        <div className="flex flex-col">
+                          <h5 className="font-bold text-sm leading-tight text-white/90 group-hover:text-primary transition-colors">
+                            {related.title}
+                          </h5>
+                          <span className="text-[10px] text-zinc-500 font-lekton uppercase mt-1">
+                            {related.date}
                           </span>
                         </div>
-                      </div>
-                      <div className="flex flex-col">
-                        <h5 className="font-bold text-sm leading-tight text-white/90 group-hover:text-primary transition-colors">
-                          {related.title}
-                        </h5>
-                        <span className="text-[10px] text-zinc-500 font-lekton uppercase mt-1">
-                          {related.date}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
+              {/* Newsletter Form for Mobile */}
+              <NewsletterForm />
+            </div>
+
+            {/* End of Post CTA */}
             <div className="mt-24 pt-12 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-8">
               <div>
                 <h3 className="text-2xl font-cursive text-white mb-2">
@@ -188,29 +213,17 @@ export default async function PostPage({
             </div>
           </div>
 
-          {/* DESKTOP SIDEBAR - STICKY COMPACT LAYOUT */}
+          {/* DESKTOP SIDEBAR */}
           <aside className="xl:col-span-4 hidden xl:block sticky top-8">
             <div className="space-y-10 mt-0 max-h-[calc(100vh-4rem)] flex flex-col">
-              <div className="p-6 rounded-3xl border-2 border-zinc-800 bg-card shadow-sharp shrink-0">
-                <h4 className="font-cursive text-2xl text-primary mb-3">
-                  The Verdict
-                </h4>
-                <p className="text-sm text-zinc-400 font-lekton mb-4">
-                  Final hardware impressions.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-block w-full text-center py-2.5 bg-white text-black font-bold rounded-xl hover:bg-primary transition-colors text-sm"
-                >
-                  View Specs
-                </Link>
-              </div>
+              <NewsletterForm />
 
               <div className="flex-1 flex flex-col overflow-hidden px-2">
                 <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4 shrink-0">
                   Article Details & Related
                 </h4>
 
+                {/* The 'no-scrollbar' class here hides the bar but keeps the functionality */}
                 <div className="flex-1 overflow-y-auto no-scrollbar space-y-6 pb-6">
                   <div className="space-y-3 font-lekton text-xs text-zinc-400 border-b border-zinc-800 pb-6">
                     <p className="flex justify-between">
@@ -226,10 +239,7 @@ export default async function PostPage({
                   </div>
 
                   {relatedPosts.map((related, index) => (
-                    <div key={related.slug} className="flex flex-col">
-                      <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 pb-2">
-                        Related posts
-                      </h4>
+                    <div key={index} className="flex flex-col">
                       <Link
                         href={`/blog/${related.slug}`}
                         className="flex items-center gap-4 group py-2 transition-all"
@@ -243,13 +253,7 @@ export default async function PostPage({
                               className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-300"
                             />
                           </div>
-                          <div className="absolute -bottom-1 -left-1 w-6 h-6 bg-zinc-100 rounded-full flex items-center justify-center border-[3px] border-black z-20">
-                            <span className="text-black font-bold text-[10px]">
-                              {index + 1}
-                            </span>
-                          </div>
                         </div>
-
                         <div className="flex flex-col">
                           <h5 className="text-white/80 font-medium text-sm leading-snug line-clamp-2 group-hover:text-primary transition-colors">
                             {related.title}
