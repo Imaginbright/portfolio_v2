@@ -4,7 +4,10 @@ import matter from "gray-matter";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
-// 1. Defines exactly what is in my MDX frontmatter
+// ---------------------------------------------------------------------
+// 1. TYPES
+// ---------------------------------------------------------------------
+
 interface MDXFrontmatter {
   title: string;
   author: string;
@@ -24,6 +27,18 @@ export interface IPost {
   featured: boolean;
 }
 
+// ---------------------------------------------------------------------
+// 2. INTERNAL CACHE  ← ⭐ THIS IS THE "HIGHLY RECOMMENDED" PART
+// ---------------------------------------------------------------------
+// This variable lives in memory while the server is running.
+// The filesystem is read ONCE instead of every request.
+
+let cachedPosts: IPost[] | null = null;
+
+// ---------------------------------------------------------------------
+// 3. CORE DATA FUNCTION (unchanged)
+// ---------------------------------------------------------------------
+
 export function getAllPosts(): IPost[] {
   const filenames = fs.readdirSync(postsDirectory);
 
@@ -38,11 +53,25 @@ export function getAllPosts(): IPost[] {
     return {
       slug,
       ...frontmatter,
-      // Ensured featured is a boolean even if i miss it in MDX
       featured: frontmatter.featured || false,
     };
   });
 }
+
+// ---------------------------------------------------------------------
+// 4. CACHED WRAPPER  ← ⭐ YOU USE THIS INSTEAD OF getAllPosts()
+// ---------------------------------------------------------------------
+
+function getAllPostsCached(): IPost[] {
+  if (!cachedPosts) {
+    cachedPosts = getAllPosts(); // filesystem read happens ONCE
+  }
+  return cachedPosts;
+}
+
+// ---------------------------------------------------------------------
+// 5. SINGLE POST (unchanged)
+// ---------------------------------------------------------------------
 
 export function getPostData(slug: string) {
   const fullPath = path.join(postsDirectory, `${slug}.mdx`);
@@ -59,16 +88,35 @@ export function getPostData(slug: string) {
   };
 }
 
-export function getFeaturedPosts(limit: number = 6): IPost[] {
-  const allPosts = getAllPosts();
+// ---------------------------------------------------------------------
+// 6. FEATURED POSTS (UPDATED TO USE CACHE)
+// ---------------------------------------------------------------------
 
-  // Filter based on the 'featured' boolean flag
+export function getFeaturedPosts(limit: number = 6): IPost[] {
+  const allPosts = getAllPostsCached(); // ← changed line
+
   const featuredPosts = allPosts.filter((post) => post.featured === true);
 
-  // Sort by newest date
   featuredPosts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   return featuredPosts.slice(0, limit);
+}
+
+// ---------------------------------------------------------------------
+// 7. RELATED POSTS  ← ⭐ NEW FUNCTION
+// ---------------------------------------------------------------------
+
+export function getRelatedPosts(
+  currentSlug: string,
+  category: string,
+  limit: number = 2,
+): IPost[] {
+  const allPosts = getAllPostsCached(); // ← changed line
+
+  return allPosts
+    .filter((post) => post.slug !== currentSlug && post.category === category)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, limit);
 }

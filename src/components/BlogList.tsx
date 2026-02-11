@@ -3,7 +3,9 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, ChevronDown } from "lucide-react";
+// OPTIMIZATION: Import icons individually to reduce JS bundle size
+import { Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { IPost } from "@/lib/blog";
 
 export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
@@ -31,7 +33,6 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
     <div className="container mx-auto px-6 md:px-20 py-10">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row gap-6 mb-12 md:items-center justify-between">
-        {/* Consistent Back Navigation */}
         <Link
           href="/"
           className="group flex items-center gap-2 text-zinc-500 hover:text-primary transition-colors font-lekton text-sm md:text-base w-fit"
@@ -43,7 +44,6 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
         </Link>
 
         <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-          {/* Search Bar */}
           <div className="relative w-full md:w-80">
             <Search
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
@@ -58,11 +58,11 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
             />
           </div>
 
-          {/* Categories Dropdown */}
           <div className="relative w-full md:w-auto">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="w-full md:w-48 flex items-center justify-between px-4 py-2 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-colors"
+              aria-label="Filter by category"
             >
               <span className="truncate text-zinc-400 text-sm font-lekton">
                 {selectedCategory === "All" ? "Category" : selectedCategory}
@@ -74,7 +74,6 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
             </button>
             {isDropdownOpen && (
               <>
-                {/* Backdrop to close dropdown on mobile when clicking outside */}
                 <div
                   className="fixed inset-0 z-10 md:hidden"
                   onClick={() => setIsDropdownOpen(false)}
@@ -101,23 +100,26 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
 
       {/* Uniform Grid UI */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-        {filteredPosts.map((p) => (
+        {filteredPosts.map((p, index) => (
           <Link
             key={p.slug}
             href={`/blog/${p.slug}`}
             className="group flex flex-col w-full"
           >
-            {/* Image Container */}
             <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
               <Image
                 src={p.thumbnail}
                 alt={p.title}
                 fill
+                // 1. FIXES OVERSIZED IMAGES: Tells browser images are small on desktop
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                // 2. FIXES LCP: Loads the first image instantly
+                priority={index === 0}
+                fetchPriority={index === 0 ? "high" : "auto"}
                 className="group-hover:scale-105 duration-500 transition-transform object-cover opacity-80 group-hover:opacity-100"
               />
             </div>
 
-            {/* Text Content */}
             <div className="mt-5 flex flex-col flex-1 px-1">
               <p className="text-[10px] tracking-widest text-primary font-bold mb-3 uppercase opacity-80 font-lekton">
                 {p.category}
@@ -138,15 +140,6 @@ export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
           </Link>
         ))}
       </div>
-
-      {/* Empty State */}
-      {filteredPosts.length === 0 && (
-        <div className="text-center py-20">
-          <p className="text-zinc-500 text-lg font-lekton">
-            No posts match your search.
-          </p>
-        </div>
-      )}
     </div>
   );
 }

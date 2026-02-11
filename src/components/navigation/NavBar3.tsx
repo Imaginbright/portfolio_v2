@@ -36,7 +36,7 @@ const Navbar3 = () => {
             <Link
               key={link.id}
               href={link.url}
-              className="ml-[30px] font-lekton text-[24px] font-bold"
+              className="ml-[30px] font-lekton text-[24px] font-bold hover:text-primary transition-colors"
             >
               {link.title}
             </Link>
@@ -47,6 +47,8 @@ const Navbar3 = () => {
         <button
           className="sm:hidden text-white outline-none"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close main menu" : "Open main menu"}
+          aria-expanded={isOpen}
         >
           {isOpen ? <X size={40} /> : <Menu size={40} />}
         </button>

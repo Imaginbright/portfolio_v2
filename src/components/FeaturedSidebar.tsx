@@ -27,6 +27,7 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
                     src={post.thumbnail}
                     alt={post.title}
                     fill
+                    sizes="(max-width: 768px) 150px, 200px"
                     className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
@@ -41,6 +42,7 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
 
               {/* Title Text */}
               <div className="flex flex-col">
+                {/* Changed to H4 */}
                 <h4 className="text-white/80 font-medium text-sm xl:text-base leading-snug line-clamp-2 transition-colors">
                   {post.title}
                 </h4>

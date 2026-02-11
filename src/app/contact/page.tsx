@@ -157,7 +157,7 @@ const ContactForm = () => {
 
           <div className="hidden lg:block w-[40%] relative min-h-[500px]">
             <Image
-              src="/images/contact.png"
+              src="/images/contact.PNG"
               alt="Contact Visual"
               fill
               className="object-cover grayscale hover:grayscale-0 transition-all duration-700"

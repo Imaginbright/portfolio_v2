@@ -6,9 +6,10 @@ const Stack = () => {
   return (
     <div className="flex flex-col h-full justify-between pb-2">
       <div>
-        <h2 className="text-[36px] xl:text-[40px] leading-none font-bold mb-1">
+        {/* Changed to H3 */}
+        <h3 className="text-[36px] xl:text-[40px] leading-none font-bold mb-1">
           Stack
-        </h2>
+        </h3>
 
         <div className="flex flex-col gap-2">
           <h4 className="text-white/55 font-lekton mb-3 text-sm uppercase tracking-widest">
@@ -51,8 +52,8 @@ const Stack = () => {
             </Badge>
             <Badge
               className="w-full"
-              width={20}
-              height={22}
+              width={24}
+              height={24}
               icon="/icons/gsap.svg"
             >
               GSAP

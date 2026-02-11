@@ -1,4 +1,4 @@
-import { getPostData, getAllPosts } from "@/lib/blog";
+import { getPostData, getRelatedPosts } from "@/lib/blog";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,11 +8,19 @@ import NewsletterForm from "@/components/blog/NewsletterForm";
 import remarkGfm from "remark-gfm";
 import { getBlurData } from "@/lib/blurhash";
 
+// -------------------------------------------------------------------------
+// 1. TYPES & INTERFACES
+// -------------------------------------------------------------------------
+
 interface ImageProps {
   src: string;
   alt?: string;
-  blurDataURL?: string; // New prop
+  blurDataURL?: string;
 }
+
+// -------------------------------------------------------------------------
+// 2. DESIGN & TYPOGRAPHY CONSTANTS
+// -------------------------------------------------------------------------
 
 const contentStyles = `
   xl:col-span-8 
@@ -33,16 +41,22 @@ const contentStyles = `
   .replace(/\s+/g, " ")
   .trim();
 
+// -------------------------------------------------------------------------
+// 3. CUSTOM MDX COMPONENTS (Image & Callout)
+// -------------------------------------------------------------------------
+
 const mdxComponents = (blurDataURL?: string) => ({
   img: (props: ImageProps) => (
     <span className="block my-12">
       <span className="relative block overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 leading-0">
         <Image
           src={props.src}
-          alt={props.alt || "Blog Image"}
+          alt={props.alt || "Blog content image"}
           width={1200}
           height={675}
-          placeholder="blur" // Enable blur
+          placeholder="blur"
+          // PERFORMANCE: Prevents huge downloads on mobile
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
           blurDataURL={
             blurDataURL ||
             "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -51,7 +65,7 @@ const mdxComponents = (blurDataURL?: string) => ({
         />
       </span>
       {props.alt && (
-        <span className="mt-4 block text-center font-lekton text-xs text-zinc-500 uppercase tracking-widest opacity-60">
+        <span className="mt-4 block text-center font-lekton text-xs text-zinc-400 uppercase tracking-widest opacity-80">
           {props.alt}
         </span>
       )}
@@ -64,213 +78,226 @@ const mdxComponents = (blurDataURL?: string) => ({
   ),
 });
 
+// -------------------------------------------------------------------------
+// 4. MAIN PAGE COMPONENT
+// -------------------------------------------------------------------------
+
 export default async function PostPage({
   params,
 }: {
   params: { slug: string };
 }) {
+  // --- Data Fetching ---
   const { slug } = await params;
   const post = getPostData(slug);
-
   const heroBlur = await getBlurData(post.frontmatter.thumbnail);
 
-  const allPosts = getAllPosts();
-  const relatedPosts = allPosts
-    .filter((p) => p.slug !== slug && p.category === post.frontmatter.category)
-    .slice(0, 2);
+  // --- Related Content Logic ---
+  const relatedPosts = getRelatedPosts(slug, post.frontmatter.category, 2);
 
   return (
-    <article className="min-h-screen bg-black text-white pb-24 relative">
-      <ScrollToTop />
-      <div className="max-w-7xl mx-auto px-6">
-        <Navbar3 />
+    <main id="main-content">
+      <article className="min-h-screen bg-black text-white pb-24 relative">
+        <ScrollToTop />
+        <div className="max-w-7xl mx-auto px-6">
+          <Navbar3 />
 
-        <header className="mb-12 max-w-4xl mt-8">
-          <Link
-            href="/blog"
-            className="group flex items-center gap-2 text-zinc-500 hover:text-primary transition-colors mb-8 font-lekton text-sm w-fit"
-          >
-            <span className="transition-transform group-hover:-translate-x-1">
-              ←
-            </span>
-            Back to all posts
-          </Link>
-
-          <div className="flex items-center gap-3 mb-6">
-            <span className="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-              {post.frontmatter.category || "Hardware"}
-            </span>
-            <span className="text-zinc-500 text-sm font-lekton">
-              {post.frontmatter.date}
-            </span>
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter mb-8 text-balance">
-            {post.frontmatter.title}
-          </h1>
-
-          <div className="flex items-center gap-4 border-t border-zinc-800 pt-8 w-fit">
-            <div className="w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center font-bold text-primary shrink-0">
-              {post.frontmatter.author[0]}
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold uppercase tracking-wider">
-                {post.frontmatter.author}
+          {/* --- Article Header (Metadata & Title) --- */}
+          <header className="mb-12 max-w-4xl mt-8">
+            <Link
+              href="/blog"
+              aria-label="Return to the main blog list"
+              className="group flex items-center gap-2 text-zinc-400 hover:text-primary transition-colors mb-8 font-lekton text-sm w-fit"
+            >
+              <span className="transition-transform group-hover:-translate-x-1">
+                ←
               </span>
-              <span className="text-xs text-zinc-500 font-lekton">
-                Tech Reviewer
+              Back to all posts
+            </Link>
+
+            <div className="flex items-center gap-3 mb-6">
+              <span className="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                {post.frontmatter.category || "Hardware"}
+              </span>
+              <span className="text-zinc-400 text-sm font-lekton">
+                {post.frontmatter.date}
               </span>
             </div>
-          </div>
-        </header>
 
-        <div className="relative aspect-video w-full xl:w-[calc(66.66%-3rem)] rounded-3xl border-2 border-zinc-800 overflow-hidden bg-zinc-900 mb-16">
-          <Image
-            src={post.frontmatter.thumbnail || "/images/keyboard.png"}
-            alt={post.frontmatter.title}
-            fill
-            placeholder="blur"
-            blurDataURL={heroBlur} // Hero image now blurs up!
-            className="object-cover opacity-90"
-            priority
-          />
-        </div>
+            <h1 className="text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter mb-8 text-balance">
+              {post.frontmatter.title}
+            </h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 items-start">
-          <div className={contentStyles}>
-            <MDXRemote
-              source={post.content}
-              // Pass the heroBlur as a fallback for MDX images
-              // or generate specific ones for content (more complex)
-              components={mdxComponents(heroBlur)}
-              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            <div className="flex items-center gap-4 border-t border-zinc-800 pt-8 w-fit">
+              <div className="w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center font-bold text-primary shrink-0">
+                {post.frontmatter.author[0]}
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold uppercase tracking-wider">
+                  {post.frontmatter.author}
+                </span>
+                <span className="text-xs text-zinc-400 font-lekton">
+                  Tech Reviewer
+                </span>
+              </div>
+            </div>
+          </header>
+
+          {/* --- Featured Hero Image --- */}
+          <div className="relative aspect-video w-full xl:w-[calc(66.66%-3rem)] rounded-3xl border-2 border-zinc-800 overflow-hidden bg-zinc-900 mb-16">
+            <Image
+              src={post.frontmatter.thumbnail || "/images/keyboard.png"}
+              alt={post.frontmatter.title}
+              fill
+              placeholder="blur"
+              blurDataURL={heroBlur}
+              priority
+              fetchPriority="high"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 1000px"
+              className="object-cover opacity-90"
             />
+          </div>
 
-            {/* MOBILE ONLY NAVIGATION SECTION */}
-            <div className="mt-20 xl:hidden space-y-16">
-              {/* Related Posts */}
-              {relatedPosts.length > 0 && (
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-8 border-b border-zinc-800 pb-4">
-                    Related &ldquo;{post.frontmatter.category}&rdquo;
-                  </h4>
-                  <div className="grid grid-cols-1 gap-6">
-                    {relatedPosts.map((related, index) => (
-                      <Link
-                        key={related.slug}
-                        href={`/blog/${related.slug}`}
-                        className="flex items-center gap-4 group"
-                      >
-                        <div className="relative shrink-0">
-                          <div className="relative h-16 w-24 bg-zinc-900 rounded-xl overflow-hidden border border-white/5">
+          {/* --- Main Content Grid --- */}
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 items-start">
+            {/* --- Article Body --- */}
+            <div className={contentStyles}>
+              <MDXRemote
+                source={post.content}
+                components={mdxComponents(heroBlur)}
+                options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+              />
+
+              {/* --- Mobile-Only Navigation (Related & Newsletter) --- */}
+              <div className="mt-20 xl:hidden space-y-16">
+                {relatedPosts.length > 0 && (
+                  <section
+                    aria-labelledby="related-posts-mobile"
+                    className="not-prose"
+                  >
+                    <h4
+                      id="related-posts-mobile"
+                      className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-8 border-b border-zinc-800 pb-4"
+                    >
+                      Related posts
+                    </h4>
+                    <div className="grid grid-cols-1 gap-6">
+                      {relatedPosts.map((related) => (
+                        <Link
+                          key={related.slug}
+                          href={`/blog/${related.slug}`}
+                          className="flex items-center gap-4 group"
+                        >
+                          {/* FIX: flex-none prevents container from collapsing to a line or half-size */}
+                          {/* Thumbnail */}
+                          <div className="relative h-14 w-20 rounded-lg overflow-hidden border border-white/5 bg-zinc-900 flex-none">
                             <Image
                               src={related.thumbnail}
                               alt={related.title}
                               fill
-                              className="object-cover opacity-80"
+                              sizes="80px"
+                              className="object-cover opacity-70 group-hover:opacity-100 transition-opacity"
                             />
                           </div>
-                          <div className="absolute -bottom-1.5 -left-1.5 w-7 h-7 bg-zinc-100 rounded-full flex items-center justify-center border-4 border-black z-20">
-                            <span className="text-black font-bold text-[11px]">
-                              {index + 1}
+                          <div className="flex flex-col">
+                            <h5 className="font-bold text-sm leading-tight text-white/90 group-hover:text-primary transition-colors">
+                              {related.title}
+                            </h5>
+                            <span className="text-[10px] text-zinc-400 font-lekton uppercase mt-1">
+                              {related.date}
                             </span>
                           </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <h5 className="font-bold text-sm leading-tight text-white/90 group-hover:text-primary transition-colors">
-                            {related.title}
-                          </h5>
-                          <span className="text-[10px] text-zinc-500 font-lekton uppercase mt-1">
-                            {related.date}
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Newsletter Form for Mobile */}
-              <NewsletterForm />
-            </div>
-
-            {/* End of Post CTA */}
-            <div className="mt-24 pt-12 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-8">
-              <div>
-                <h3 className="text-2xl font-cursive text-white mb-2">
-                  Thanks for reading
-                </h3>
-                <p className="text-zinc-500 font-lekton">
-                  Check out my other deep dives into tech.
-                </p>
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                )}
+                <NewsletterForm />
               </div>
-              <Link
-                href="/blog"
-                className="px-8 py-4 bg-primary text-black font-bold rounded-2xl hover:bg-white transition-all hover:-translate-y-1 active:scale-95 shadow-lg shadow-primary/20"
-              >
-                Explore More Posts
-              </Link>
+
+              {/* --- Footer CTA Section --- */}
+              <div className="mt-24 pt-12 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div>
+                  <h3 className="text-2xl font-cursive text-white mb-2">
+                    Thanks for reading
+                  </h3>
+                  <p className="text-zinc-400 font-lekton">
+                    Check out my other deep dives into tech.
+                  </p>
+                </div>
+                <Link
+                  href="/blog"
+                  className="px-8 py-4 bg-primary text-black font-bold rounded-2xl hover:bg-white transition-all hover:-translate-y-1 active:scale-95 shadow-lg shadow-primary/20"
+                >
+                  Explore More Posts
+                </Link>
+              </div>
             </div>
-          </div>
 
-          {/* DESKTOP SIDEBAR */}
-          <aside className="xl:col-span-4 hidden xl:block sticky top-8">
-            <div className="space-y-10 mt-0 max-h-[calc(100vh-4rem)] flex flex-col">
-              <NewsletterForm />
+            {/* --- Desktop Sidebar (Article Details & Related) --- */}
+            <aside className="xl:col-span-4 hidden xl:block sticky top-8">
+              <div className="space-y-10 mt-0 max-h-[calc(100vh-4rem)] flex flex-col">
+                <NewsletterForm />
 
-              <div className="flex-1 flex flex-col overflow-hidden px-2">
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mb-4 shrink-0">
-                  Article Details & Related
-                </h4>
+                <div className="flex-1 flex flex-col overflow-hidden px-2">
+                  <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4 shrink-0">
+                    Article Details
+                  </h4>
 
-                {/* The 'no-scrollbar' class here hides the bar but keeps the functionality */}
-                <div className="flex-1 overflow-y-auto no-scrollbar space-y-6 pb-6">
-                  <div className="space-y-3 font-lekton text-xs text-zinc-400 border-b border-zinc-800 pb-6">
-                    <p className="flex justify-between">
-                      <span>Reading Time</span>
-                      <span className="text-white">5 Mins</span>
-                    </p>
-                    <p className="flex justify-between">
-                      <span>Released</span>
-                      <span className="text-white">
-                        {post.frontmatter.date}
-                      </span>
-                    </p>
-                  </div>
+                  <div className="flex-1 overflow-y-auto no-scrollbar space-y-6 pb-6">
+                    <div className="space-y-3 font-lekton text-xs text-zinc-400 border-b border-zinc-800 pb-6">
+                      <p className="flex justify-between">
+                        <span>Reading Time</span>
+                        <span className="text-white">5 Mins</span>
+                      </p>
+                      <p className="flex justify-between">
+                        <span>Released</span>
+                        <span className="text-white">
+                          {post.frontmatter.date}
+                        </span>
+                      </p>
+                    </div>
 
-                  {relatedPosts.map((related, index) => (
-                    <div key={index} className="flex flex-col">
-                      <Link
-                        href={`/blog/${related.slug}`}
-                        className="flex items-center gap-4 group py-2 transition-all"
-                      >
-                        <div className="relative shrink-0">
-                          <div className="relative h-14 w-20 bg-zinc-900 rounded-lg overflow-hidden border border-white/5">
+                    {relatedPosts.map((related, index) => (
+                      <div key={index} className="flex flex-col">
+                        <h4
+                          id="related-posts-desktop"
+                          className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 pb-2"
+                        >
+                          Related posts
+                        </h4>
+
+                        <Link
+                          href={`/blog/${related.slug}`}
+                          className="flex items-center gap-4 group py-2 transition-all"
+                        >
+                          <div className="relative h-14 w-20 bg-zinc-900 rounded-lg overflow-hidden border border-white/5 flex-none">
                             <Image
                               src={related.thumbnail}
-                              alt={related.title}
+                              alt=""
                               fill
+                              sizes="80px"
                               className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-300"
                             />
                           </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <h5 className="text-white/80 font-medium text-sm leading-snug line-clamp-2 group-hover:text-primary transition-colors">
-                            {related.title}
-                          </h5>
-                          <span className="text-[10px] text-zinc-600 font-lekton uppercase mt-1">
-                            {related.category}
-                          </span>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
+                          <div className="flex flex-col">
+                            <h5 className="text-white/80 font-medium text-sm leading-snug line-clamp-2">
+                              {related.title}
+                            </h5>
+                            <span className="text-[10px] text-zinc-400 font-lekton uppercase mt-1">
+                              {related.category}
+                            </span>
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </aside>
+            </aside>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </main>
   );
 }
