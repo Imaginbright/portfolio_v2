@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import FeaturedSidebarSkeleton from "@/components/ui/FeaturedSidebarSkeleton";
 import { getFeaturedPosts } from "@/lib/blog";
 import Link from "next/link";
+import CurrentDate from "../ui/CurrentDate";
 
 const PortfolioGrid = async () => {
   const featuredPosts = getFeaturedPosts(6);
@@ -32,16 +33,18 @@ const PortfolioGrid = async () => {
 
                 {/* FIX 2: Changed P to H2 for better SEO and hierarchy flow */}
                 <h2 className="mt-6 md:mt-9 text-[#979EA6] md:text-lg xl:text-[20px]/6 leading-relaxed max-w-prose font-normal">
-                  I’m a Web Developer dedicated to building seamless,
-                  high-performing websites that solve real problems. With
-                  expertise in React, Next.js, and GSAP, I transform ideas into
-                  responsive, engaging digital experiences.
+                  I’m a{" "}
+                  <span className="text-white">Creative Web Developer</span>{" "}
+                  dedicated to building seamless, high-performing websites that
+                  solve real problems. With expertise in React, Next.js, and
+                  TailWind CSS, I transform ideas into responsive, engaging
+                  digital experiences.
                 </h2>
               </div>
 
               <Button
                 href="/contact"
-                className="mt-8 md:mt-10 py-3 font-bold text-black rounded-2xl xl:rounded-lg border border-black bg-primary hover:bg-primary/80 w-full shadow-sharp sm:w-fit"
+                className="mt-8 md:mt-10 py-3 font-bold text-black rounded-2xl xl:rounded-lg border border-black bg-primary hover:bg-white transition-colors w-full shadow-sharp sm:w-fit"
               >
                 Get in touch
               </Button>
@@ -67,7 +70,9 @@ const PortfolioGrid = async () => {
                   ></div>
                   <p className="text-[12px] font-bold">Available for work</p>
                 </div>
-                <p className="text-[12px] opacity-70 mt-1 pl-5">19/11/2025</p>
+                <p className="text-[12px] opacity-70 mt-1 pl-5">
+                  <CurrentDate />
+                </p>
               </div>
             </div>
           </div>

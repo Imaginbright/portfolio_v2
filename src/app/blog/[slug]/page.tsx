@@ -7,10 +7,72 @@ import ScrollToTop from "@/components/navigation/ScrollToTop";
 import NewsletterForm from "@/components/blog/NewsletterForm";
 import remarkGfm from "remark-gfm";
 import { getBlurData } from "@/lib/blurhash";
+import { Metadata } from "next";
 
-// -------------------------------------------------------------------------
-// 1. TYPES & INTERFACES
-// -------------------------------------------------------------------------
+// This is for SEO and Metadata generation
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostData(slug);
+  const siteUrl = "https://imaginbright.com";
+
+  const description =
+    post.frontmatter.description ||
+    post.content.slice(0, 160).replace(/[#*]/g, "").trim() + "...";
+
+  const ogImage = post.frontmatter.thumbnail || "/images/og-default.png";
+
+  return {
+    title: post.frontmatter.title,
+    description: description,
+    authors: [{ name: post.frontmatter.author }],
+
+    // --- This section is for google discover --- //
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large", // <--- THE KEY TO DISCOVER
+        "max-snippet": -1,
+      },
+    },
+
+    openGraph: {
+      title: post.frontmatter.title,
+      description: description,
+      type: "article",
+      url: `${siteUrl}/blog/${slug}`,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: post.frontmatter.title,
+        },
+      ],
+      publishedTime: post.frontmatter.date,
+      section: post.frontmatter.category,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.frontmatter.title,
+      description: description,
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: `${siteUrl}/blog/${slug}`,
+    },
+  };
+}
+
+// The types definition
 
 interface ImageProps {
   src: string;
@@ -18,9 +80,7 @@ interface ImageProps {
   blurDataURL?: string;
 }
 
-// -------------------------------------------------------------------------
-// 2. DESIGN & TYPOGRAPHY CONSTANTS
-// -------------------------------------------------------------------------
+// Design and typography constants
 
 const contentStyles = `
   xl:col-span-8 
@@ -41,9 +101,7 @@ const contentStyles = `
   .replace(/\s+/g, " ")
   .trim();
 
-// -------------------------------------------------------------------------
-// 3. CUSTOM MDX COMPONENTS (Image & Callout)
-// -------------------------------------------------------------------------
+// Custom MDX Components (Image & Callout)
 
 const mdxComponents = (blurDataURL?: string) => ({
   img: (props: ImageProps) => (
@@ -55,7 +113,7 @@ const mdxComponents = (blurDataURL?: string) => ({
           width={1200}
           height={675}
           placeholder="blur"
-          // PERFORMANCE: Prevents huge downloads on mobile
+          // This prevents huge downloads on mobile
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
           blurDataURL={
             blurDataURL ||
@@ -78,9 +136,7 @@ const mdxComponents = (blurDataURL?: string) => ({
   ),
 });
 
-// -------------------------------------------------------------------------
-// 4. MAIN PAGE COMPONENT
-// -------------------------------------------------------------------------
+// This is the MAIN PAGE COMPONENT
 
 export default async function PostPage({
   params,
@@ -91,12 +147,48 @@ export default async function PostPage({
   const { slug } = await params;
   const post = getPostData(slug);
   const heroBlur = await getBlurData(post.frontmatter.thumbnail);
+  const siteUrl = "https://imaginbright.com";
 
   // --- Related Content Logic ---
   const relatedPosts = getRelatedPosts(slug, post.frontmatter.category, 2);
 
+  // --- JSON-LD Structured Data ---
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.frontmatter.title,
+    image: [post.frontmatter.thumbnail],
+    datePublished: post.frontmatter.date,
+    dateModified: post.frontmatter.date,
+    author: [
+      {
+        "@type": "Person",
+        name: post.frontmatter.author,
+        url: `${siteUrl}/about`,
+      },
+    ],
+    publisher: {
+      "@type": "Organization",
+      name: "ImaginBright",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo.png`, // Make sure i have a logo at this path or update it
+      },
+    },
+    //
+    description:
+      post.frontmatter.description ||
+      post.content.slice(0, 140).replace(/[#*]/g, "").trim(),
+  };
+
   return (
     <main id="main-content">
+      {/* Inject Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <article className="min-h-screen bg-black text-white pb-24 relative">
         <ScrollToTop />
         <div className="max-w-7xl mx-auto px-6">
@@ -137,7 +229,7 @@ export default async function PostPage({
                   {post.frontmatter.author}
                 </span>
                 <span className="text-xs text-zinc-400 font-lekton">
-                  Tech Reviewer
+                  Tech Creator
                 </span>
               </div>
             </div>
@@ -188,7 +280,6 @@ export default async function PostPage({
                           href={`/blog/${related.slug}`}
                           className="flex items-center gap-4 group"
                         >
-                          {/* FIX: flex-none prevents container from collapsing to a line or half-size */}
                           {/* Thumbnail */}
                           <div className="relative h-14 w-20 rounded-lg overflow-hidden border border-white/5 bg-zinc-900 flex-none">
                             <Image
@@ -203,8 +294,10 @@ export default async function PostPage({
                             <h5 className="font-bold text-sm leading-tight text-white/90 group-hover:text-primary transition-colors">
                               {related.title}
                             </h5>
-                            <span className="text-[10px] text-zinc-400 font-lekton uppercase mt-1">
-                              {related.date}
+                            <span className="text-zinc-400 text-sm font-lekton">
+                              <time dateTime={post.frontmatter.date}>
+                                {post.frontmatter.date}
+                              </time>
                             </span>
                           </div>
                         </Link>
@@ -252,8 +345,10 @@ export default async function PostPage({
                       </p>
                       <p className="flex justify-between">
                         <span>Released</span>
-                        <span className="text-white">
-                          {post.frontmatter.date}
+                        <span className="text-zinc-400 text-sm font-lekton">
+                          <time dateTime={post.frontmatter.date}>
+                            {post.frontmatter.date}
+                          </time>
                         </span>
                       </p>
                     </div>

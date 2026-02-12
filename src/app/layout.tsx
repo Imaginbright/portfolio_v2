@@ -4,10 +4,10 @@ import { Toaster } from "sonner";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const hiragino = localFont({
-  src: "./fonts/Hiragino.woff",
-  variable: "--font-hiragino",
-  weight: "800",
+const whisper = localFont({
+  src: "./fonts/NewfieldRegular.woff",
+  variable: "--font-whisper",
+  weight: "400",
 });
 
 //Configured Lekton
@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${lekton.variable} ${luckiest.variable} ${hiragino.variable} antialiased`}
+        className={`${lekton.variable} ${luckiest.variable} ${whisper.variable} antialiased`}
       >
         {children}
         <Toaster position="bottom-right" richColors />

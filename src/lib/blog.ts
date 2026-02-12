@@ -15,6 +15,7 @@ interface MDXFrontmatter {
   category: string;
   thumbnail: string;
   featured: boolean;
+  description?: string;
 }
 
 export interface IPost {

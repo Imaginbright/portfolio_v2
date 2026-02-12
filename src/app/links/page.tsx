@@ -21,8 +21,8 @@ const featuredLinks = [
     bgColor: "bg-emerald-400/10",
   },
   {
-    title: "Join my Newsletter",
-    url: "https://newsletter.com",
+    title: "Contact Me",
+    url: "/contact",
     icon: <Mail className="w-5 h-5 text-orange-400" />,
     bgColor: "bg-orange-400/10",
   },

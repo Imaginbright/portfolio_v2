@@ -55,7 +55,7 @@ const ContactForm = () => {
     }
   };
 
-  // Use text base on mobile devices so the page doesn't zoom in cause the text is 14px
+  // i used text base on mobile devices so the page doesn't zoom in cause the text is 14px
   const inputClasses =
     "w-full bg-transparent border-b border-neutral-700 py-2 text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition-colors font-lekton text-base md:text-sm";
 
@@ -63,7 +63,8 @@ const ContactForm = () => {
     "text-[10px] text-red-500 mt-1 uppercase tracking-wider block";
 
   return (
-    <section className="w-full flex flex-col items-center justify-center px-4 md:p-6">
+    // FIX: Added min-h-screen here so justify-center works vertically on large screens
+    <section className="w-full min-h-screen flex flex-col items-center justify-center px-4 md:p-6">
       <div className="max-w-5xl w-full flex flex-col">
         {/* Navigation */}
         <Navbar2 />

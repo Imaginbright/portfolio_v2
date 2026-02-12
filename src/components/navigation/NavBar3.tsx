@@ -27,7 +27,7 @@ const Navbar3 = () => {
       <div className="flex w-full justify-between items-center">
         {/* Logo */}
         <Link href="/" aria-label="Home" onClick={() => setIsOpen(false)}>
-          <p className="text-5xl font-heavy">亮</p>
+          <p className="text-4xl font-heavy max-sm:text-3xl">Bright</p>
         </Link>
 
         {/* Desktop Links (Filtered) */}

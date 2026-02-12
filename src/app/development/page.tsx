@@ -3,25 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Navbar2 from "@/components/navigation/NavBar2";
-import { getBlurData } from "@/lib/blurhash";
 
-// 1. Convert to Server Component for maximum speed
-const Page = async () => {
-  // 2. Pre-generate blurs on the server
-  const projectsWithBlur = await Promise.all(
-    WebProjects.map(async (project) => ({
-      ...project,
-      blurDataURL: await getBlurData(project.image),
-    })),
-  );
-
+const Page = () => {
   return (
     <div className="max-w-[1600px] mx-auto w-full px-4 md:px-8 xl:px-12">
       <Navbar2 />
 
       <main className="min-h-screen w-full flex flex-col pt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-16 gap-y-8 md:gap-y-12 xl:gap-y-16 pb-20">
-          {projectsWithBlur.map((project, index) => (
+          {WebProjects.map((project, index) => (
             <Link
               href={project.link}
               key={project.id}
@@ -32,12 +22,8 @@ const Page = async () => {
                   src={project.image}
                   alt={project.title}
                   fill
-                  // OPTIMIZATION 1: Responsive sizing (Kills the 671KB waste)
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  // OPTIMIZATION 2: LCP priority for the first project
                   priority={index === 0}
-                  fetchPriority={index === 0 ? "high" : "auto"}
-                  // OPTIMIZATION 3: Blur-up effect
                   placeholder="blur"
                   blurDataURL={project.blurDataURL}
                   className="object-cover"
