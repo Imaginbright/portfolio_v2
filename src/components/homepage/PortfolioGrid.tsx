@@ -33,12 +33,10 @@ const PortfolioGrid = async () => {
 
                 {/* FIX 2: Changed P to H2 for better SEO and hierarchy flow */}
                 <h2 className="mt-6 md:mt-9 text-[#979EA6] md:text-lg xl:text-[20px]/6 leading-relaxed max-w-prose font-normal">
-                  I’m a{" "}
-                  <span className="text-white">Creative Web Developer</span>{" "}
-                  dedicated to building seamless, high-performing websites that
-                  solve real problems. With expertise in React, Next.js, and
-                  TailWind CSS, I transform ideas into responsive, engaging
-                  digital experiences.
+                  I’m a Web Developer dedicated to building seamless,
+                  high-performing websites that solve real problems. With
+                  expertise in React, Next.js, and TailWind CSS, I transform
+                  ideas into responsive, engaging digital experiences.
                 </h2>
               </div>
 

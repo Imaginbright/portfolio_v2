@@ -42,11 +42,31 @@ const featuredLinks = [
 
 // Social Row (The "Twitter Side")
 const socialLinks = [
-  { icon: <Youtube size={30} />, label: "Subscribe on YouTube", url: "#" },
-  { icon: <Instagram size={22} />, label: "Follow on Instagram", url: "#" },
-  { icon: <Twitter size={22} />, label: "Follow me on Twitter", url: "#" },
-  { icon: <Github size={21} />, label: "View my code", url: "#" },
-  { icon: <Music2 size={21} />, label: "Watch on TikTok", url: "#" },
+  {
+    icon: <Youtube size={30} />,
+    label: "Subscribe on YouTube",
+    url: "https://www.youtube.com/@imaginbright",
+  },
+  {
+    icon: <Instagram size={22} />,
+    label: "Follow on Instagram",
+    url: "https://www.instagram.com/imaginbright/",
+  },
+  {
+    icon: <Twitter size={22} />,
+    label: "Follow me on Twitter",
+    url: "https://x.com/imaginbright",
+  },
+  {
+    icon: <Github size={21} />,
+    label: "View my code",
+    url: "https://github.com/Imaginbright",
+  },
+  {
+    icon: <Music2 size={21} />,
+    label: "Watch on TikTok",
+    url: "https://www.tiktok.com/@imaginbright",
+  },
 ];
 
 export default function LinkTree() {
