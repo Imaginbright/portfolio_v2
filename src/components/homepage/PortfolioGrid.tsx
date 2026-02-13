@@ -16,9 +16,9 @@ const PortfolioGrid = async () => {
 
   return (
     <main className="min-h-screen w-full">
-      <div className="grid grid-cols-1 md:grid-cols-12 xl:grid-cols-24 gap-4 md:gap-6 px-4 md:px-8 xl:px-[38px]">
+      <div className="grid grid-cols-1 md:grid-cols-12 xl:grid-cols-24 gap-4 md:gap-6 px-4 md:px-8 xl:px-9.5">
         {/* Profile Section */}
-        <section className="md:col-span-12 xl:col-span-13 min-h-fit xl:min-h-[392px] rounded-[30px] border-2 border-zinc-800 p-6 md:p-9 bg-card flex flex-col">
+        <section className="md:col-span-12 xl:col-span-13 min-h-fit xl:min-h-98 rounded-[30px] border-2 border-zinc-800 p-6 md:p-9 bg-card flex flex-col">
           <div className="flex flex-col lg:flex-row gap-8 xl:h-full">
             {/* Left Column */}
             <div className="flex flex-1 flex-col xl:justify-between">
@@ -57,10 +57,10 @@ const PortfolioGrid = async () => {
                 height={220}
                 priority
                 fetchPriority="high"
-                className="pt-2 object-contain w-32 md:w-41 xl:w-[164px]"
+                className="pt-2 object-contain w-32 md:w-41 xl:w-41"
               />
 
-              <div className="flex flex-col items-center lg:items-end xl:items-start mt-6 lg:mt-0 xl:h-[52px] xl:justify-start">
+              <div className="flex flex-col items-center lg:items-end xl:items-start mt-6 lg:mt-0 xl:h-13 xl:justify-start">
                 <div className="flex gap-3 items-center bg-zinc-800/50 px-4 py-2 rounded-full lg:bg-transparent lg:p-0">
                   <div
                     className="bg-primary rounded-full w-2 h-2 animate-pulse"
@@ -77,13 +77,13 @@ const PortfolioGrid = async () => {
         </section>
 
         {/* Stack Section */}
-        <section className="md:col-span-5 xl:col-span-5 min-h-[300px] xl:min-h-[392px] rounded-[30px] border-2 border-zinc-800 p-6 bg-card">
+        <section className="md:col-span-5 xl:col-span-5 min-h-75 xl:min-h-98 rounded-[30px] border-2 border-zinc-800 p-6 bg-card">
           {/* Ensure the title inside <Stack /> is an <h3> */}
           <Stack />
         </section>
 
         {/* Featured Section */}
-        <aside className="col-span-1 md:col-span-7 xl:col-span-6 xl:row-span-2 relative min-h-fit md:min-h-[300px] xl:min-h-[768px]">
+        <aside className="col-span-1 md:col-span-7 xl:col-span-6 xl:row-span-2 relative min-h-fit md:min-h-75 xl:min-h-192">
           <Suspense fallback={<FeaturedSidebarSkeleton />}>
             <div className="w-full h-full rounded-[30px] border-2 border-zinc-800 p-5 bg-card overflow-y-auto no-scrollbar xl:absolute xl:-top-18 xl:bottom-0 xl:h-auto xl:overflow-hidden">
               {/* Ensure the titles inside <FeaturedSidebar /> are <h3> */}
@@ -93,7 +93,7 @@ const PortfolioGrid = async () => {
         </aside>
 
         {/* Dev Portfolio */}
-        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
+        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-68.25 rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
           <div className="absolute inset-0">
             <DevSection />
           </div>
@@ -103,7 +103,7 @@ const PortfolioGrid = async () => {
         </section>
 
         {/* 3D Portfolio */}
-        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-[273px] rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
+        <section className="group relative w-full md:col-span-6 xl:col-span-9 min-h-68.25 rounded-[30px] bg-zinc-900 border-2 border-zinc-800 overflow-hidden">
           <div className="absolute inset-0">
             <ThreeSection />
           </div>
