@@ -23,7 +23,7 @@ export default function Home() {
   };
 
   return (
-    <div className="max-w-[1600px] mx-auto w-full">
+    <div className="max-w-400 mx-auto w-full">
       {/* Inject Schema */}
       <script
         type="application/ld+json"

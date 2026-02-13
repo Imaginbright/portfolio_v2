@@ -118,7 +118,7 @@ export default function LinkTree() {
       </section>
 
       {/* Content Section */}
-      <section className="w-full max-w-[550px]">
+      <section className="w-full max-w-137.5">
         <h2 className="text-[14px] uppercase tracking-[0.35em] text-white/75 font-bold mb-6 text-center">
           Featured Links
         </h2>
