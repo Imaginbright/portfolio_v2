@@ -20,13 +20,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1 : 0.8,
   }));
 
-  // 2. Generate Dynamic Blog Post URLs
-  const blogRoutes = getAllPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date).toISOString(),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+  // 2. Generate Dynamic Blog Post URLs (WITH SAFETY CHECK)
+  const blogRoutes = getAllPosts().map((post) => {
+    // Try to parse the date
+    let date = new Date(post.date);
+
+    // Safety Check: If date is invalid (NaN), use today's date
+    if (isNaN(date.getTime())) {
+      console.warn(
+        `⚠️ Invalid date found for post: ${post.slug}. Using current date.`,
+      );
+      date = new Date();
+    }
+
+    return {
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: date.toISOString(),
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    };
+  });
 
   // 3. Generate Dynamic Project URLs
   const projectRoutes = PROJECTS.map((project) => ({
