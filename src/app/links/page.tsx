@@ -33,8 +33,8 @@ const featuredLinks = [
     bgColor: "bg-blue-400/10",
   },
   {
-    title: "Shop",
-    url: "https://imaginbrights-store.lemonsqueezy.com/",
+    title: "Store",
+    url: "https://store.imaginbright.com/",
     icon: <ShoppingBag className="w-5 h-5 text-purple-400" />,
     bgColor: "bg-purple-400/10",
   },

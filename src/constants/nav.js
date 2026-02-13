@@ -11,7 +11,7 @@ export const navigation = [
   },
   {
     id: "3",
-    title: "Shop",
-    url: "https://imaginbrights-store.lemonsqueezy.com/",
+    title: "Store",
+    url: "https://store.imaginbright.com/",
   },
 ];
