@@ -156,7 +156,7 @@ const ContactForm = () => {
             </form>
           </div>
 
-          <div className="hidden lg:block w-[40%] relative min-h-[500px]">
+          <div className="hidden lg:block w-[40%] relative min-h-125">
             <Image
               src="/images/contact.PNG"
               alt="Contact Visual"
