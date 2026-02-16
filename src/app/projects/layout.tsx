@@ -6,7 +6,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="max-w-[1200px] mx-auto px-5 md:px-8">
+    <section className="max-w-300 mx-auto px-5 md:px-8">
       {/* My custom navigation component */}
       <Navbar2 />
       <main>{children}</main>

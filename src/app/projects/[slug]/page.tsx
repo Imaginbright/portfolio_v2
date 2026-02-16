@@ -57,7 +57,7 @@ const Projectpage = async ({ params }: Props) => {
         </div>
 
         {/* Main Hero Image with aspect ratio logic*/}
-        <div className="relative w-full lg:w-[450px] aspect-4/5 md:aspect-video lg:aspect-3/4 overflow-hidden rounded-3xl shrink-0 bg-zinc-900">
+        <div className="relative w-full lg:w-112.5 aspect-4/5 md:aspect-video lg:aspect-3/4 overflow-hidden rounded-3xl shrink-0 bg-zinc-900">
           <Image
             src={project.images.main}
             alt={project.title}

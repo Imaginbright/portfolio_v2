@@ -20,7 +20,7 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <nav className="flex items-center pt-10 pb-5 px-4 md:px-[38px] w-full xl:pb-7">
+    <nav className="flex items-center pt-10 pb-5 px-4 md:px-9.5 w-full xl:pb-7">
       <div className="flex xl:w-[78%] md:w-full w-full justify-between items-center xl:pr-8 md:pr-0">
         <Link href="/" aria-label="Home" onClick={() => setIsOpen(false)}>
           <p className="text-4xl font-heavy max-sm:text-3xl">Bright</p>
@@ -32,7 +32,7 @@ const Navbar = () => {
             <Link
               key={id}
               href={link.url}
-              className="xl:mx-[30px] md:ml-[30px] font-lekton text-[24px] font-bold hover:text-primary transition-colors"
+              className="xl:mx-7.5 md:ml-7.5 font-lekton text-[24px] font-bold hover:text-primary transition-colors"
             >
               {link.title}
             </Link>
@@ -57,7 +57,7 @@ const Navbar = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="fixed top-[100px] left-0 w-full bg-[#0f0e11] border-b border-neutral-800 sm:hidden z-50 overflow-hidden"
+            className="fixed top-25 left-0 w-full bg-[#0f0e11] border-b border-neutral-800 sm:hidden z-50 overflow-hidden"
           >
             <div className="flex flex-col p-8 gap-8">
               {navigation.map((link, id) => (
