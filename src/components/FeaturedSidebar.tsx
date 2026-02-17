@@ -6,23 +6,27 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
   if (!posts || posts.length === 0) return null;
 
   return (
-    <div className="flex flex-col h-full max-h-[850px] xl:max-h-none">
+    <div className="flex flex-col h-full max-h-212.5 xl:max-h-none">
       {/* Title - Responsive text size to match the Profile H1 on mobile */}
-      <h3 className="text-3xl xl:text-[40px] font-bold text-primary mb-4 xl:mb-2">
+      <h3 className="text-3xl xl:text-[40px] font-bold text-primary mb-4 xl:mb-2 max-sm:pt-2 max-sm:mb-2">
         Featured Posts
       </h3>
 
       {/* Scrollable List container */}
       <div className="flex flex-col flex-1 overflow-y-auto no-scrollbar pb-4">
         {posts.map((post, index) => (
-          <div key={post.slug} className="flex flex-col">
+          /* FIX: Added 'hidden xl:flex' for items index 4 and above (5th and 6th items) */
+          <div
+            key={post.slug}
+            className={`flex flex-col ${index >= 4 ? "hidden xl:flex" : "flex"}`}
+          >
             <Link
               href={`/blog/${post.slug}`}
               className="flex items-center gap-4 group py-4 xl:py-3 px-2 transition-all"
             >
               {/* Thumbnail Box */}
               <div className="relative shrink-0">
-                <div className="relative h-16 w-[90px] xl:h-20 xl:w-[110px] bg-gray-800 rounded-xl overflow-hidden border border-white/5">
+                <div className="relative h-16 w-22.5 xl:h-20 xl:w-27.5 bg-gray-800 rounded-xl overflow-hidden border border-white/5">
                   <Image
                     src={post.thumbnail}
                     alt={post.title}
@@ -42,7 +46,6 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
 
               {/* Title Text */}
               <div className="flex flex-col">
-                {/* Changed to H4 */}
                 <h4 className="text-white/80 font-medium text-sm xl:text-base leading-snug line-clamp-2 transition-colors">
                   {post.title}
                 </h4>
@@ -50,7 +53,10 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
             </Link>
 
             {index !== posts.length - 1 && (
-              <div className="border-b border-white/10 w-full"></div>
+              /* FIX: Hide the border for the 4th item on mobile so it doesn't look like there's more coming */
+              <div
+                className={`border-b border-white/10 w-full ${index === 3 ? "hidden xl:block" : "block"}`}
+              ></div>
             )}
           </div>
         ))}
