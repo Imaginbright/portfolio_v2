@@ -8,7 +8,7 @@ const WorkInProgress = () => {
       <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left: The Visual */}
         <div className="flex-1 flex justify-center items-center order-1 md:order-1">
-          <div className="relative w-[250px] h-[250px] md:w-[450px] md:h-[450px] animate-pulse">
+          <div className="relative w-62.5 h-62.5 md:w-112.5 md:h-112.5 animate-pulse">
             <Image
               src="/images/wip.svg"
               alt="Under Construction"
