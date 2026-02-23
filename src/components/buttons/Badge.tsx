@@ -32,7 +32,7 @@ const Badge = ({
     <button type={type} className={classes} {...rest}>
       {/* Icon Rendering Logic */}
       {icon && (
-        <span className="mr-[5px] flex items-center justify-center">
+        <span className="mr-1.25 flex items-center justify-center">
           {typeof icon === "string" ? (
             <Image
               src={icon}
