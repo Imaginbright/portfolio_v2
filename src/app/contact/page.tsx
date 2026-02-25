@@ -110,7 +110,7 @@ const ContactForm = () => {
               <div>
                 <input
                   {...register("projectType")}
-                  placeholder="Project type"
+                  placeholder="Project type(Landing Pages, SAAS)"
                   className={inputClasses}
                 />
                 {errors.projectType && (
