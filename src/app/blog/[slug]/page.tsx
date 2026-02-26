@@ -24,7 +24,9 @@ export async function generateMetadata({
     post.frontmatter.description ||
     post.content.slice(0, 160).replace(/[#*]/g, "").trim() + "...";
 
-  const ogImage = post.frontmatter.thumbnail || "/images/og-default.png";
+  const ogImage = post.frontmatter.thumbnail
+    ? `${siteUrl}${post.frontmatter.thumbnail}`
+    : `${siteUrl}/images/og-default.png`;
 
   return {
     title: post.frontmatter.title,
