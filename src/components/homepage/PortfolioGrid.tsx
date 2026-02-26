@@ -12,7 +12,7 @@ import Link from "next/link";
 import CurrentDate from "../ui/CurrentDate";
 
 const PortfolioGrid = async () => {
-  const featuredPosts = getFeaturedPosts(6);
+  const featuredPosts = getFeaturedPosts(7);
 
   return (
     <main className="min-h-screen w-full">
