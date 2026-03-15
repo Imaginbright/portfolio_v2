@@ -6,10 +6,10 @@ import Navbar2 from "@/components/navigation/NavBar2";
 
 const Page = () => {
   return (
-    <div className="max-w-[1600px] mx-auto w-full px-4 md:px-8 xl:px-12">
+    <div className="max-w-400 mx-auto w-full px-4 md:px-8 xl:px-12">
       <Navbar2 />
 
-      <main className="min-h-screen w-full flex flex-col pt-10">
+      <main className="min-h-screen w-full flex flex-col pt-10 max-sm:pt-6">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-16 gap-y-8 md:gap-y-12 xl:gap-y-16 pb-20">
           {WebProjects.map((project, index) => (
             <Link
@@ -17,7 +17,7 @@ const Page = () => {
               key={project.id}
               className="group flex flex-col gap-4"
             >
-              <section className="w-full min-h-[300px] aspect-video rounded-2xl bg-zinc-900 border-2 border-zinc-800 overflow-hidden relative transition-transform duration-300 group-hover:-translate-y-2">
+              <section className="w-full min-h-75 aspect-video rounded-2xl bg-zinc-900 border-2 border-zinc-800 overflow-hidden relative transition-transform duration-300 group-hover:-translate-y-2">
                 <Image
                   src={project.image}
                   alt={project.title}

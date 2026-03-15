@@ -197,7 +197,7 @@ export default async function PostPage({
           <Navbar3 />
 
           {/* --- Article Header (Metadata & Title) --- */}
-          <header className="mb-12 max-w-4xl mt-8">
+          <header className="mb-12 max-w-4xl mt-2 md:mt-8">
             <Link
               href="/blog"
               aria-label="Return to the main blog list"

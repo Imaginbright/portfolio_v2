@@ -5,6 +5,7 @@ import { navigation } from "@/constants/nav"; // Keeps the original array
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Navbar3 = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,7 @@ const Navbar3 = () => {
       <div className="flex w-full justify-between items-center">
         {/* Logo */}
         <Link href="/" aria-label="Home" onClick={() => setIsOpen(false)}>
-          <p className="text-4xl font-heavy max-sm:text-3xl">Bright</p>
+          <Image src="/images/lgw.svg" alt="logo" width={40} height={40} />
         </Link>
 
         {/* Desktop Links (Filtered) */}
@@ -36,7 +37,7 @@ const Navbar3 = () => {
             <Link
               key={link.id}
               href={link.url}
-              className="ml-[30px] font-lekton text-[24px] font-bold hover:text-primary transition-colors"
+              className="ml-7.5 font-lekton text-[24px] font-bold hover:text-primary transition-colors"
             >
               {link.title}
             </Link>

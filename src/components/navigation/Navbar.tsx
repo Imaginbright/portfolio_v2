@@ -5,6 +5,7 @@ import Link from "next/link";
 import { navigation } from "@/constants/nav";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ const Navbar = () => {
     <nav className="flex items-center pt-10 pb-5 px-4 md:px-9.5 w-full xl:pb-7">
       <div className="flex xl:w-[78%] md:w-full w-full justify-between items-center xl:pr-8 md:pr-0">
         <Link href="/" aria-label="Home" onClick={() => setIsOpen(false)}>
-          <p className="text-4xl font-heavy max-sm:text-3xl">Bright</p>
+          <Image src="/images/lgw.svg" alt="logo" width={40} height={40} />
         </Link>
 
         {/* Desktop Links */}
