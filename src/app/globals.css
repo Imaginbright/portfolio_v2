@@ -67,6 +67,10 @@ body {
   font-family: var(--font-whisper), sans-serif;
 }
 
+@utility font-inter1 {
+  font-family: var(--font-inter1), sans-serif;
+}
+
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center;
