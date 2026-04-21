@@ -5,7 +5,7 @@ export default function FeaturedSidebarSkeleton() {
   const skeletonItems = Array.from({ length: 5 });
 
   return (
-    <div className="flex flex-col h-full max-h-[850px] xl:max-h-none">
+    <div className="flex flex-col h-full max-h-212.5 xl:max-h-none">
       {/* Matching Title Skeleton */}
       <Skeleton className="h-9 xl:h-12 w-48 mb-4 xl:mb-2" />
 
@@ -15,7 +15,7 @@ export default function FeaturedSidebarSkeleton() {
             <div className="flex items-center gap-4 py-4 xl:py-3 px-2">
               {/* Thumbnail Box Skeleton */}
               <div className="relative shrink-0">
-                <Skeleton className="h-16 w-[90px] xl:h-20 xl:w-[110px] rounded-xl border border-white/5" />
+                <Skeleton className="h-16 w-22.5 xl:h-20 xl:w-27.5 rounded-xl border border-white/5" />
 
                 {/* The "Knockout" Circle Skeleton */}
                 <div className="absolute -bottom-1.5 -left-1.5 w-8 h-8 xl:w-9 xl:h-9 bg-card rounded-full flex items-center justify-center border-4 xl:border-[5px] border-card z-20">

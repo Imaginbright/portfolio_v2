@@ -32,11 +32,12 @@ const PortfolioGrid = async () => {
                 </p>
 
                 {/* FIX 2: Changed P to H2 for better SEO and hierarchy flow */}
-                <h2 className="mt-6 md:mt-9 text-[#979EA6] md:text-lg xl:text-[20px]/6 leading-relaxed max-w-prose font-normal">
-                  I’m a Web Developer dedicated to building seamless,
-                  high-performing websites that solve real problems. With
-                  expertise in React, Next.js, and TailWind CSS, I transform
-                  ideas into responsive, engaging digital experiences.
+                <h2 className="mt-6 md:mt-9 text-[#979EA6] md:text-[16px] xl:text-[18px]/6 leading-relaxed max-w-prose font-normal max-sm:text-pretty">
+                  For me, it’s all about making cool things that works
+                  beautifully. Sometimes that means writing clean code in
+                  Next.js and Tailwind, sometimes it&apos;s sculpting a 3D
+                  scene, and other times it&apos;s hitting record to share my
+                  passions with my community.
                 </h2>
               </div>
 
@@ -57,7 +58,7 @@ const PortfolioGrid = async () => {
                 height={220}
                 priority
                 fetchPriority="high"
-                className="pt-2 object-contain w-32 md:w-41 xl:w-41"
+                className="pt-2 object-contain w-32 md:w-41 xl:w-41 md:mt-2"
               />
 
               <div className="flex flex-col items-center lg:items-end xl:items-start mt-6 lg:mt-0 xl:h-13 xl:justify-start">

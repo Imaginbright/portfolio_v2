@@ -46,7 +46,7 @@ export default function FeaturedSidebar({ posts }: { posts: IPost[] }) {
 
               {/* Title Text */}
               <div className="flex flex-col">
-                <h4 className="text-white/80 font-medium text-sm xl:text-base leading-snug line-clamp-2 transition-colors">
+                <h4 className="text-white/80 font-semibold text-sm xl:text-base leading-snug line-clamp-2 transition-colors">
                   {post.title}
                 </h4>
               </div>
