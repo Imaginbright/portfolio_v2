@@ -363,8 +363,9 @@ export default async function PostPage({
                       </p>
                     </div>
 
-                    {relatedPosts.map((related, index) => (
-                      <div key={index} className="flex flex-col">
+                    {/* --- Move the heading OUTSIDE the loop --- */}
+                    {relatedPosts.length > 0 && (
+                      <div className="flex flex-col space-y-4">
                         <h4
                           id="related-posts-desktop"
                           className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 pb-2"
@@ -372,30 +373,33 @@ export default async function PostPage({
                           Related posts
                         </h4>
 
-                        <Link
-                          href={`/blog/${related.slug}`}
-                          className="flex items-center gap-4 group py-2 transition-all"
-                        >
-                          <div className="relative h-14 w-20 bg-zinc-900 rounded-lg overflow-hidden border border-white/5 flex-none">
-                            <Image
-                              src={related.thumbnail}
-                              alt=""
-                              fill
-                              sizes="80px"
-                              className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-                            />
-                          </div>
-                          <div className="flex flex-col">
-                            <h5 className="text-white/80 font-medium text-sm leading-snug line-clamp-2">
-                              {related.title}
-                            </h5>
-                            <span className="text-[10px] text-zinc-400 font-lekton uppercase mt-1">
-                              {related.category}
-                            </span>
-                          </div>
-                        </Link>
+                        {relatedPosts.map((related, index) => (
+                          <Link
+                            key={index}
+                            href={`/blog/${related.slug}`}
+                            className="flex items-center gap-4 group py-2 transition-all"
+                          >
+                            <div className="relative h-14 w-20 bg-zinc-900 rounded-lg overflow-hidden border border-white/5 flex-none">
+                              <Image
+                                src={related.thumbnail}
+                                alt=""
+                                fill
+                                sizes="80px"
+                                className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                              />
+                            </div>
+                            <div className="flex flex-col">
+                              <h5 className="text-white/80 font-medium text-sm leading-snug line-clamp-2">
+                                {related.title}
+                              </h5>
+                              <span className="text-[10px] text-zinc-400 font-lekton uppercase mt-1">
+                                {related.category}
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
                       </div>
-                    ))}
+                    )}
                   </div>
                 </div>
               </div>
