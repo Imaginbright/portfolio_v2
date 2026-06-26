@@ -151,6 +151,11 @@ export default async function PostPage({
   const heroBlur = await getBlurData(post.frontmatter.thumbnail);
   const siteUrl = "https://imaginbright.com";
 
+  // --- Calculate Reading Time ---
+  // Assuming an average reading speed of 225 words per minute
+  const wordCount = post.content.trim().split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 225);
+
   // --- Related Content Logic ---
   const relatedPosts = getRelatedPosts(slug, post.frontmatter.category, 2);
 
@@ -159,6 +164,7 @@ export default async function PostPage({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.frontmatter.title,
+    timeRequired: `PT${readingTime}M`,
     image: [post.frontmatter.thumbnail],
     datePublished: post.frontmatter.date,
     dateModified: post.frontmatter.date,
@@ -343,7 +349,9 @@ export default async function PostPage({
                     <div className="space-y-3 font-lekton text-xs text-zinc-400 border-b border-zinc-800 pb-6">
                       <p className="flex justify-between">
                         <span>Reading Time</span>
-                        <span className="text-white">5 Mins</span>
+                        <span className="text-white">
+                          {readingTime} Min{readingTime !== 1 ? "s" : ""}
+                        </span>
                       </p>
                       <p className="flex justify-between">
                         <span>Released</span>
