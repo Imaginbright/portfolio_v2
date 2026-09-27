@@ -2,7 +2,19 @@ import Link from "next/link";
 import { PROJECTS } from "@/constants/projects";
 import ProjectPreview from "@/components/ProjectPreview";
 import Carousel from "@/components/Carousel";
-export const metadata = { title: "Development" };
+import { buildOpenGraph } from "@/lib/site";
+
+const description = "Selected development work by Somto Okonkwo.";
+export const metadata = {
+  title: "Development",
+  description,
+  alternates: { canonical: "/development" },
+  openGraph: buildOpenGraph(
+    "Development | Imaginbright",
+    description,
+    "/development",
+  ),
+};
 export default function Development() {
   return (
     <main

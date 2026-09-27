@@ -1,5 +1,10 @@
 import PortfolioGrid from "@/components/homepage/PortfolioGrid";
+import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   // JSON-LD for "Person"
@@ -8,7 +13,7 @@ export default function Home() {
     "@type": "Person",
     name: "Somto",
     alternateName: "Imaginbright",
-    url: "https://imaginbright.com",
+    url: SITE_URL,
     jobTitle: "Web Developer",
     sameAs: [
       "https://github.com/Imaginbright",

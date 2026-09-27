@@ -7,6 +7,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import SiteNav from "@/components/navigation/SiteNav";
 import SiteFooter from "@/components/navigation/SiteFooter";
+import { SITE_URL } from "@/lib/site";
 
 const panton = localFont({
   src: [
@@ -46,7 +47,7 @@ const lekton = localFont({
 
 export const metadata: Metadata = {
   // This will allow Next.js to resolve absolute URLs for images
-  metadataBase: new URL("https://imaginbright.com"),
+  metadataBase: new URL(SITE_URL),
 
   title: {
     default: "Imaginbright | Web Developer Portfolio",
@@ -65,18 +66,14 @@ export const metadata: Metadata = {
     "Frontend Engineer",
   ],
 
-  authors: [{ name: "Somto", url: "https://imaginbright.com" }],
+  authors: [{ name: "Somto", url: `${SITE_URL}/about` }],
   creator: "Somto",
-
-  alternates: {
-    canonical: "./",
-  },
 
   // 2. SOCIAL MEDIA CARDS (Open Graph)
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://imaginbright.com",
+    url: SITE_URL,
     title: "Imaginbright | Web Developer Portfolio",
     description:
       "Web Developer specializing in React, Next.js, and Tailwind CSS.",

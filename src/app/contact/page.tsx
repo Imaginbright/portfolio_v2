@@ -1,9 +1,15 @@
 import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
+import { buildOpenGraph } from "@/lib/site";
+
+const description =
+  "Contact Somto Okonkwo about a development or design project.";
 
 export const metadata = {
   title: "Contact",
+  description,
   alternates: { canonical: "/contact" },
+  openGraph: buildOpenGraph("Contact | Imaginbright", description, "/contact"),
 };
 
 export default function Contact() {

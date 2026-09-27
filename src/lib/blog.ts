@@ -16,6 +16,8 @@ interface MDXFrontmatter {
   thumbnail: string;
   featured: boolean;
   description?: string;
+  updated?: string;
+  lastVerified?: string;
 }
 
 export interface IPost {
@@ -26,6 +28,27 @@ export interface IPost {
   category: string;
   thumbnail: string;
   featured: boolean;
+  description?: string;
+  updated?: string;
+  lastVerified?: string;
+}
+
+export function getPostDescription(content: string): string {
+  const paragraph = content
+    .split(/\n\s*\n/)
+    .map((block) =>
+      block
+        .replace(/<[^>]+>/g, " ")
+        .replace(/!\[[^\]]*\]\([^\)]+\)/g, " ")
+        .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+        .replace(/[*_`#>]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim(),
+    )
+    .find((block) => block.length >= 80 && !block.startsWith("|"));
+
+  if (!paragraph) return "";
+  return paragraph.length > 157 ? `${paragraph.slice(0, 157).trim()}…` : paragraph;
 }
 
 // ---------------------------------------------------------------------

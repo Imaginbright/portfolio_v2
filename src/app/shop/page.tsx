@@ -1,7 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PRODUCTS } from "@/constants/products";
-export const metadata = { title: "Shop", alternates: { canonical: "/shop" } };
+import { buildOpenGraph } from "@/lib/site";
+
+const description = "Digital products from Imaginbright.";
+export const metadata = {
+  title: "Shop",
+  description,
+  alternates: { canonical: "/shop" },
+  openGraph: buildOpenGraph("Shop | Imaginbright", description, "/shop"),
+};
 export default function Shop() {
   return (
     <main

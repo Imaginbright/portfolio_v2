@@ -3,7 +3,16 @@ import BlogList from "@/components/BlogList";
 import NewsletterForm from "@/components/blog/NewsletterForm";
 import Image from "next/image";
 import Link from "next/link";
-export const metadata = { title: "Blog" };
+import { buildOpenGraph } from "@/lib/site";
+
+const description =
+  "Technology articles, reviews, guides, and explainers by Somto Okonkwo.";
+export const metadata = {
+  title: "Blog",
+  description,
+  alternates: { canonical: "/blog" },
+  openGraph: buildOpenGraph("Blog | Imaginbright", description, "/blog"),
+};
 export default function Blog() {
   const posts = getAllPosts().sort(
     (a, b) => +new Date(b.date) - +new Date(a.date),

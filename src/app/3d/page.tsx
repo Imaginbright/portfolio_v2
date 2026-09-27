@@ -1,6 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-export const metadata = { title: "3D Lab" };
+import type { Metadata } from "next";
+import { buildOpenGraph } from "@/lib/site";
+
+const description = "A preview of Somto Okonkwo's 3D work.";
+
+export const metadata: Metadata = {
+  title: "3D Lab",
+  description,
+  alternates: { canonical: "/3d" },
+  robots: { index: false, follow: true },
+  openGraph: buildOpenGraph("3D Lab | Imaginbright", description, "/3d"),
+};
 export default function ThreeD() {
   return (
     <main

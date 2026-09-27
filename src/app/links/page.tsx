@@ -13,6 +13,7 @@ import {
   ShoppingBag,
   ArrowUpRight,
 } from "lucide-react";
+import { buildOpenGraph } from "@/lib/site";
 
 const featuredLinks = [
   {
@@ -69,8 +70,14 @@ const socialLinks = [
   },
 ];
 
+const description =
+  "Imaginbright links, social profiles, Blog, Shop, and contact page.";
+
 export const metadata = {
   title: "Links",
+  description,
+  alternates: { canonical: "/links" },
+  openGraph: buildOpenGraph("Links | Imaginbright", description, "/links"),
 };
 
 export default function Links() {

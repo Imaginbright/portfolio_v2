@@ -6,7 +6,6 @@ import { useRef, useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 const routes = [
   ["Development", "/development"],
-  ["3D", "/3d"],
   ["Blog", "/blog"],
   ["Shop", "/shop"],
   ["Links", "/links"],

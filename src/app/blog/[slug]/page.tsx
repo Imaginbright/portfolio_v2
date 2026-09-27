@@ -1,4 +1,9 @@
-import { getAllPosts, getPostData, getRelatedPosts } from "@/lib/blog";
+import {
+  getAllPosts,
+  getPostData,
+  getPostDescription,
+  getRelatedPosts,
+} from "@/lib/blog";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +13,7 @@ import remarkGfm from "remark-gfm";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import styles from "./Article.module.css";
-const siteUrl = "https://imaginbright.com";
+import { SITE_URL } from "@/lib/site";
 type Props = { params: Promise<{ slug: string }> };
 function readPost(slug: string) {
   if (!getAllPosts().some((p) => p.slug === slug)) notFound();
@@ -18,14 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params,
     post = readPost(slug),
     p = post.frontmatter,
-    description =
-      p.description || post.content.slice(0, 160).replace(/[#*]/g, "").trim(),
-    image = new URL(p.thumbnail, siteUrl).href;
+    description = p.description || getPostDescription(post.content),
+    image = new URL(p.thumbnail, SITE_URL).href;
   return {
     title: p.title,
     description,
-    authors: [{ name: p.author, url: siteUrl }],
-    alternates: { canonical: siteUrl + "/blog/" + slug },
+    authors: [{ name: p.author, url: `${SITE_URL}/about` }],
+    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
     robots: {
       index: true,
       follow: true,
@@ -41,9 +45,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: p.title,
       description,
       type: "article",
-      url: siteUrl + "/blog/" + slug,
+      url: `${SITE_URL}/blog/${slug}`,
       images: [{ url: image, width: 1200, height: 630, alt: p.title }],
       publishedTime: p.date,
+      modifiedTime: p.updated,
       section: p.category,
     },
     twitter: {
@@ -93,36 +98,28 @@ export default async function Article({ params }: Props) {
     p = post.frontmatter,
     readingTime = Math.ceil(post.content.trim().split(/\s+/).length / 225),
     related = getRelatedPosts(slug, p.category, 3);
-  const excerpt =
-    p.description ||
-    post.content
-      .split(/\n\s*\n/)
-      .map((x) => x.trim())
-      .find(
-        (x) =>
-          x.length > 80 &&
-          !x.startsWith("#") &&
-          !x.startsWith("<") &&
-          !x.startsWith("!"),
-      );
+  const excerpt = p.description || getPostDescription(post.content);
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: p.title,
-    url: siteUrl + "/blog/" + slug,
-    mainEntityOfPage: siteUrl + "/blog/" + slug,
+    url: `${SITE_URL}/blog/${slug}`,
+    mainEntityOfPage: `${SITE_URL}/blog/${slug}`,
     timeRequired: "PT" + readingTime + "M",
-    image: [new URL(p.thumbnail, siteUrl).href],
+    image: [new URL(p.thumbnail, SITE_URL).href],
     datePublished: p.date,
-    dateModified: p.date,
-    author: { "@type": "Person", name: p.author, url: siteUrl },
+    dateModified: p.updated || p.date,
+    author: { "@type": "Person", name: p.author, url: `${SITE_URL}/about` },
     publisher: {
       "@type": "Organization",
       name: "Imaginbright",
-      logo: { "@type": "ImageObject", url: siteUrl + "/publisher-logo.png" },
+      url: SITE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/publisher-logo.png`,
+      },
     },
-    description:
-      p.description || post.content.slice(0, 140).replace(/[#*]/g, "").trim(),
+    description: p.description || getPostDescription(post.content),
   };
   const eyebrow =
     "font-lekton text-xs leading-[1.5] tracking-[.1em] uppercase text-[var(--text-secondary)]";
@@ -172,7 +169,7 @@ export default async function Article({ params }: Props) {
               </p>
             )}
             <div className="mt-[25px] flex items-center gap-3">
-              <Link href="/" aria-label="About the author">
+              <Link href="/about" aria-label="About the author">
                 <Image
                   className="h-11 w-11 rounded-full object-cover"
                   src="/optimized/profile1.webp"

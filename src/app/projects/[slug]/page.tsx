@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PROJECTS } from "@/constants/projects";
+import { SITE_URL } from "@/lib/site";
 type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
@@ -10,6 +11,15 @@ export async function generateMetadata({ params }: Props) {
     title: p?.title,
     description: p?.description,
     alternates: { canonical: "/projects/" + slug },
+    openGraph: p
+      ? {
+          type: "website" as const,
+          title: p.title,
+          description: p.description,
+          url: `${SITE_URL}/projects/${slug}`,
+          images: [{ url: p.images.main, alt: `${p.title} project` }],
+        }
+      : undefined,
   };
 }
 export default async function ProjectPage({ params }: Props) {

@@ -9,9 +9,11 @@ export default function SiteFooter() {
       <p className="leading-[1.6] max-md:text-right">
         © {new Date().getFullYear()} Imaginbright
       </p>
-      <div className="flex gap-6 max-md:col-span-full max-md:justify-between">
+      <div className="flex flex-wrap gap-6 max-md:col-span-full max-md:justify-between">
         <a href="https://github.com/Imaginbright">GitHub</a>
         <a href="https://www.youtube.com/@imaginbright">YouTube</a>
+        <Link href="/about">About</Link>
+        <Link href="/privacy">Privacy</Link>
         <Link href="/contact">Contact ↗</Link>
       </div>
     </footer>
