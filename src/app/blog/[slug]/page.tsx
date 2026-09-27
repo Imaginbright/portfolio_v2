@@ -24,7 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     post = readPost(slug),
     p = post.frontmatter,
     description = p.description || getPostDescription(post.content),
-    image = new URL(p.thumbnail, SITE_URL).href;
+    image = new URL(p.thumbnail, SITE_URL).href,
+    modifiedDate = p.lastVerified || p.updated || p.date;
   return {
     title: p.title,
     description,
@@ -48,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${SITE_URL}/blog/${slug}`,
       images: [{ url: image, width: 1200, height: 630, alt: p.title }],
       publishedTime: p.date,
-      modifiedTime: p.updated,
+      modifiedTime: modifiedDate,
       section: p.category,
     },
     twitter: {
@@ -97,7 +98,8 @@ export default async function Article({ params }: Props) {
     post = readPost(slug),
     p = post.frontmatter,
     readingTime = Math.ceil(post.content.trim().split(/\s+/).length / 225),
-    related = getRelatedPosts(slug, p.category, 3);
+    related = getRelatedPosts(slug, p.category, 3),
+    modifiedDate = p.lastVerified || p.updated || p.date;
   const excerpt = p.description || getPostDescription(post.content);
   const schema = {
     "@context": "https://schema.org",
@@ -108,7 +110,7 @@ export default async function Article({ params }: Props) {
     timeRequired: "PT" + readingTime + "M",
     image: [new URL(p.thumbnail, SITE_URL).href],
     datePublished: p.date,
-    dateModified: p.updated || p.date,
+    dateModified: modifiedDate,
     author: { "@type": "Person", name: p.author, url: `${SITE_URL}/about` },
     publisher: {
       "@type": "Organization",

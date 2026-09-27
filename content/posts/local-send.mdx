@@ -5,53 +5,76 @@ author: "Somto"
 category: "Apps"
 featured: true
 thumbnail: "/blog/LocalSend/localsend-hero.png"
+description: "LocalSend is the easiest way I've found to move full-quality files between my iPad, iPhone and Windows PC without relying on cloud storage."
+lastVerified: "2026-09-27"
 ---
 
 ## The Ecosystem Trap
 
-If you use an iPad alongside a Windows PC, you already know the struggle when trying to move a simple 4K video file or a thumbnail draft between the two devices.
+If you use an iPad or iPhone alongside a Windows PC, you already know how annoying it can be to move something as simple as a 4K video file or thumbnail between the two.
 
-Apple wants you to buy a Mac to use AirDrop, and Windows wants you to jump through hoops with cloud storage. If you’ve been relying on emailing yourself links or waiting for Google Drive to sync massive files, it's time to stop cause there is a much better way to bypass this barrier entirely.
+AirDrop is great when everything you own is made by Apple, but the moment Windows enters the picture, things get messy. You either start uploading files to Google Drive, plug in a cable and fight with Apple's file handling on Windows, or somehow end up sending things to yourself.
+
+For me, there is a much easier solution: **LocalSend**.
 
 ## The Setup: LocalSend
 
-The secret is an open-source app called **LocalSend**. It doesn't use the cloud, it doesn't require an internet connection, and it doesn't compress your files. It simply uses your local Wi-Fi network to sebd files directly from device to device.
+LocalSend is a free, open-source app that lets devices send files directly across your local network. There is no account to create, no cloud upload and no intentional compression of your files.
 
-First, download the LocalSend application on your Windows PC and grab the app from the App Store on your iPad or iPhone.
+That last part is especially important for me because I'm usually moving videos, thumbnails and other creative files where I want the original file untouched.
 
-Once you open the software on both devices, you don't even need to create an account or type in a password. The app automatically assigns a random name to your devices (like "Clever Tomato" or "Happy Lemon") so you can instantly recognize them.
+Install LocalSend on your Windows PC, then grab it on your iPhone or iPad. It also works on Android, macOS and Linux, so you're not locking yourself into another ecosystem.
+
+Once you open the app, it automatically gives each device a random name like "Clever Tomato" or "Happy Lemon." You don't need to sign in or pair the devices manually.
 
 ![LocalSend interface on Windows PC](/blog/LocalSend/localsend-desktop.png)
 
 ## Breaking the Barrier
 
-Here is where the magic happens. On your iPad, just hit the **Send** tab, select the videos, images, or even just a block of text you want to share, and tap your PC's name on the radar.
+Using it is stupidly simple.
 
-The transfer speeds are insane and this is because it uses your local network, I can throw heavy DaVinci Resolve project files or uncompressed Affinity Photo assets across my room in seconds while my internet is technically down.
+On the iPad, open the **Send** tab, choose a file, folder, photo or even a block of text, then select your PC from the list of nearby devices. Accept the transfer on the other side and that's basically it.
+
+Because the file is travelling across your local network instead of being uploaded to a cloud server and downloaded again, transfers can be very fast on a good network. I've used it to move large video files and Affinity Photo assets between my devices without even needing an active internet connection.
+
+The important distinction there is **internet connection versus local network**. Your internet can be completely down and LocalSend can still work as long as the devices can communicate with each other through the same local network.
 
 <Callout>
-  **Important Prerequisite:** Both devices must be connected to the exact same
-  Wi-Fi network or router. If your PC is on an ethernet connection but it's
-  routed through the same network your iPad's Wi-Fi is on, it will still work
-  perfectly.
+  **Important:** Both devices need to be able to see each other on the same
+  local network. Your PC can be connected through Ethernet while the iPad uses
+  Wi-Fi, as long as both connections go through the same router or network and
+  client isolation isn't blocking communication between them.
 </Callout>
 
-## The Catch (and The Fix)
+The actual transfer speed depends heavily on your router, Wi-Fi signal and the devices themselves. On a good 5GHz or Wi-Fi 6 connection it can be ridiculously quick, but a slow or congested network will obviously drag the transfer speed down with it.
 
-There is one limitation: because Apple's background app refresh can be aggressively strict, iOS will sometimes kill the app's discoverability when you minimize it.
+## The Catch
 
-You won't always see your iPad show up on your PC's radar right away.
+LocalSend isn't completely flawless on iOS.
 
-### Here is the strategy:
+I've noticed that device discovery can become unreliable when the app has been sitting in the background. Sometimes my PC won't see the iPhone or iPad until I bring LocalSend back to the foreground.
 
-1. Always open LocalSend on your iPad _first_ and leave the screen on.
-2. Open LocalSend on your PC.
-3. Initiate the transfer.
+The easiest fix for me has been:
 
-As long as the app is actively open on your iPad's screen, the devices will instantly find each other every single time.
+1. Open LocalSend on the iPhone or iPad and leave it on-screen.
+2. Open LocalSend on the PC.
+3. Wait a few seconds for both devices to appear.
+4. Start the transfer.
 
 <div className="max-w-150 mx-auto">
-  ![LocalSend radar on iPad](/blog/LocalSend/localsend-mobile.png)
+
+![LocalSend radar on iPad](/blog/LocalSend/localsend-mobile.png)
+
 </div>
 
-Good luck, and I'll see you in the next one.
+If the devices still can't see each other, make sure they're actually on the same network and check that your router isn't isolating Wi-Fi devices from each other. Windows Firewall can also get in the way if LocalSend wasn't allowed through when you first installed it.
+
+## Why I Keep Using It
+
+The biggest compliment I can give LocalSend is that I barely think about it anymore.
+
+If I shoot something on my iPhone and need it on my PC, I open LocalSend. If I finish a thumbnail on the iPad and need it on Windows, I open LocalSend. If I just need to send a link or a block of text across devices, same thing.
+
+There are more complicated ways to connect Windows and Apple's ecosystem, but for simply moving files between them, this is still the easiest solution I've found.
+
+And it's free.
