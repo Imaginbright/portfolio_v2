@@ -1,5 +1,5 @@
 import PortfolioGrid from "@/components/homepage/PortfolioGrid";
-import Navbar from "@/components/navigation/Navbar";
+
 
 export default function Home() {
   // JSON-LD for "Person"
@@ -30,7 +30,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Navbar />
+
       <PortfolioGrid />
     </div>
   );

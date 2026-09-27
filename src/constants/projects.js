@@ -4,15 +4,15 @@ export const PROJECTS = [
     title: "BrightsBase",
     subtitle: "FullStack Application",
     description:
-      "Brightbase is a student-centric question and answer platform that connects learners with answers — modeled after community sites like Reddit but focused on academic help. Students can ask questions,browse answers, and engage with a knowledge-sharing community.",
+      "Brightbase is a student-centric question and answer platform that connects learners with answers — modeled after community sites like Reddit but focused on academic help. Students can ask questions, browse answers, and engage with a knowledge-sharing community.",
     role: "Full Stack Developer",
     year: "2026",
     url: "https://brightsbase.vercel.app/",
     stack: ["Next.Js", "Tailwind CSS", "MongoDB Atlas", "Node.JS"],
     images: {
-      main: "/web/bb.png",
-      screenshot1: "/web/bbss1.png",
-      screenshot2: "/web/bbss2.png",
+      main: "/optimized/bb.webp",
+      screenshot1: "/optimized/bbss1.webp",
+      screenshot2: "/optimized/bbss2.webp",
     },
   },
 
@@ -27,9 +27,9 @@ export const PROJECTS = [
     url: "https://brainwave-challenge.vercel.app/",
     stack: ["React", "Tailwind CSS", "GSAP"],
     images: {
-      main: "/web/bw.png",
-      screenshot1: "/web/bws1.png",
-      screenshot2: "/web/bws2.png",
+      main: "/optimized/bw.webp",
+      screenshot1: "/optimized/bws1.webp",
+      screenshot2: "/optimized/bws2.webp",
     },
   },
 
@@ -41,12 +41,12 @@ export const PROJECTS = [
       "CineTrack is a movie discovery tool that uses the TMDB API to help users find ratings and release years for their favorite films. I implemented a custom trending system that populates based on internal search frequency rather than external data. This allowed me to practice managing real-time data integration.",
     role: "Full Stack Developer",
     year: "2026",
-    url: "https://brainwave-challenge.vercel.app/",
+    url: "https://movie-app-sky9.vercel.app/",
     stack: ["Next.Js", "TMDB API", "Tailwind CSS", "Prisma"],
     images: {
-      main: "/web/ct.png",
-      screenshot1: "/web/ctss1.png",
-      screenshot2: "/web/ctss2.png",
+      main: "/optimized/ct.webp",
+      screenshot1: "/optimized/ctss1.webp",
+      screenshot2: "/optimized/ctss2.webp",
     },
   },
   {
@@ -60,9 +60,9 @@ export const PROJECTS = [
     url: "https://iphone-clone-landing-page.vercel.app/", // Add your link
     stack: ["React", "Three.Js", "GSAP", "Tailwind CSS"],
     images: {
-      main: "/web/ip.png",
-      screenshot1: "/web/ips1.png",
-      screenshot2: "/web/ips2.png",
+      main: "/optimized/ip.webp",
+      screenshot1: "/optimized/ips1.webp",
+      screenshot2: "/optimized/ips2.webp",
     },
   },
 
@@ -77,9 +77,9 @@ export const PROJECTS = [
     url: "https://my-portfolio-imaginbrights-projects.vercel.app/", // Add your link
     stack: ["Next.Js", "GSAP", "Tailwind CSS"],
     images: {
-      main: "/web/pt.png",
-      screenshot1: "/web/pts1.png",
-      screenshot2: "/web/pts2.png",
+      main: "/optimized/pt.webp",
+      screenshot1: "/optimized/pts1.webp",
+      screenshot2: "/optimized/pts2.webp",
     },
   },
 ];

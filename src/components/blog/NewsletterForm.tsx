@@ -1,77 +1,84 @@
 "use client";
 import { useState } from "react";
-
 export default function NewsletterForm() {
   const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
+    "idle" | "loading" | "submitted" | "error"
   >("idle");
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("loading");
-
-    const formData = new FormData(e.currentTarget);
-    const storeSlug = "imaginbrights-store";
-
     try {
       await fetch(
-        `https://${storeSlug}.lemonsqueezy.com/email-subscribe/external`,
+        "https://imaginbrights-store.lemonsqueezy.com/email-subscribe/external",
         {
           method: "POST",
-          body: formData,
+          body: new FormData(e.currentTarget),
           mode: "no-cors",
         },
       );
-      setStatus("success");
+      setStatus("submitted");
     } catch {
-      setStatus("success");
+      setStatus("error");
     }
   }
-
-  if (status === "success") {
-    return (
-      <div className="p-8 rounded-3xl border-2 border-primary/30 bg-primary/5 shadow-sharp text-center">
-        <h4 className="font-cursive text-2xl text-primary mb-2">
-          You&apos;re in!
-        </h4>
-        <p className="text-sm text-zinc-400 font-lekton">Welcome.</p>
-      </div>
-    );
-  }
-
+  const input =
+    "w-full min-w-0 border border-[var(--border)] bg-[var(--surface-1)] p-3 text-sm";
   return (
-    <div className="p-8 rounded-3xl border-2 border-zinc-800 bg-card shadow-sharp shrink-0">
-      <h4 className="font-cursive text-2xl text-primary mb-4">Join the Lab</h4>
-      <p className="text-sm text-zinc-400 font-lekton mb-6">
+    <section className="mt-[30px] border border-[var(--border)] bg-[var(--surface-2)] p-[25px]">
+      <h3 className="font-panton text-2xl leading-[1.12] font-semibold tracking-[-.02em]">
+        Join the Lab
+      </h3>
+      <p className="my-3 mb-5 text-[13px] leading-[1.6] text-[var(--text-secondary)]">
         Get my hardware deep dives directly in your inbox.
       </p>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* ADDED NAME FIELD */}
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          required
-          className="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm font-lekton focus:outline-none focus:border-primary transition-colors text-white"
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="your@email.com"
-          required
-          className="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm font-lekton focus:outline-none focus:border-primary transition-colors text-white"
-        />
-
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          className="w-full py-3 bg-white text-black font-bold rounded-xl hover:bg-primary transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+      {status === "submitted" ? (
+        <p
+          className="my-3 mb-5 text-[13px] leading-[1.6] text-[var(--text-secondary)]"
+          role="status"
         >
-          {status === "loading" ? "Joining..." : "Subscribe for Free"}
-        </button>
-      </form>
-    </div>
+          Request submitted.
+        </p>
+      ) : (
+        <form className="grid gap-3" onSubmit={submit}>
+          <label className="sr-only" htmlFor="newsletter-name">
+            Your Name
+          </label>
+          <input
+            className={input}
+            id="newsletter-name"
+            name="name"
+            placeholder="Your Name"
+            required
+            autoComplete="name"
+          />
+          <label className="sr-only" htmlFor="newsletter-email">
+            Email
+          </label>
+          <input
+            className={input}
+            id="newsletter-email"
+            name="email"
+            type="email"
+            placeholder="your@email.com"
+            required
+            autoComplete="email"
+          />
+          <button
+            className="border-0 bg-[var(--text-primary)] p-[13px] text-[13px] text-[var(--background)] disabled:opacity-50"
+            disabled={status === "loading"}
+          >
+            {status === "loading" ? "Joining..." : "Subscribe for Free"}
+          </button>
+          {status === "error" && (
+            <p
+              className="my-3 mb-5 text-[13px] leading-[1.6] text-[var(--text-secondary)]"
+              role="alert"
+            >
+              Unable to submit. Please try again.
+            </p>
+          )}
+        </form>
+      )}
+    </section>
   );
 }

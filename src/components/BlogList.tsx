@@ -1,145 +1,94 @@
 "use client";
-
-import { useState, useMemo } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
-// OPTIMIZATION: Import icons individually to reduce JS bundle size
-import { Search } from "lucide-react";
-import { ChevronDown } from "lucide-react";
-import { IPost } from "@/lib/blog";
-
+import Image from "next/image";
+import type { IPost } from "@/lib/blog";
 export default function BlogList({ allPosts }: { allPosts: IPost[] }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const categories = [
-    "All",
-    ...Array.from(new Set(allPosts.map((p) => p.category))),
-  ];
-
-  const filteredPosts = useMemo(() => {
-    return allPosts.filter((post) => {
-      const matchesSearch = post.title
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
-      const matchesCategory =
-        selectedCategory === "All" || post.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchQuery, selectedCategory, allPosts]);
-
+  const [query, setQuery] = useState(""),
+    [category, setCategory] = useState("All");
+  const categories = Array.from(new Set(allPosts.map((p) => p.category)));
+  const posts = allPosts.filter(
+    (p) =>
+      (category === "All" || p.category === category) &&
+      p.title.toLowerCase().includes(query.toLowerCase()),
+  );
+  const field =
+    "min-h-11 min-w-0 rounded-[3px] border border-[var(--border)] bg-[var(--surface-2)] p-[11px] text-[13px] text-[var(--text-primary)]";
   return (
-    <div className="container mx-auto px-6 md:px-20 py-10">
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row gap-6 mb-12 md:items-center justify-between">
-        <Link
-          href="/"
-          className="group flex items-center gap-2 text-zinc-500 hover:text-primary transition-colors font-lekton text-sm md:text-base w-fit"
-        >
-          <span className="transition-transform group-hover:-translate-x-1">
-            ←
-          </span>
-          Back to home
-        </Link>
-
-        <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-          <div className="relative w-full md:w-80">
-            <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-              size={18}
-            />
-            <input
-              type="text"
-              placeholder="Search posts..."
-              className="w-full pl-10 pr-4 py-2 rounded-full border border-zinc-800 bg-zinc-900/30 focus:outline-none focus:border-zinc-600 transition-colors text-sm"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-
-          <div className="relative w-full md:w-auto">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-full md:w-48 flex items-center justify-between px-4 py-2 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-colors"
-              aria-label="Filter by category"
-            >
-              <span className="truncate text-zinc-400 text-sm font-lekton">
-                {selectedCategory === "All" ? "Category" : selectedCategory}
-              </span>
-              <ChevronDown
-                size={16}
-                className={`transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-            {isDropdownOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-10 md:hidden"
-                  onClick={() => setIsDropdownOpen(false)}
-                />
-                <div className="absolute z-20 w-full mt-2 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl overflow-hidden">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      className="w-full text-left px-4 py-2.5 hover:bg-zinc-800 transition-colors text-sm capitalize font-lekton text-zinc-400 hover:text-primary"
-                      onClick={() => {
-                        setSelectedCategory(cat);
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+    <section id="archive">
+      <div className="flex items-center justify-between gap-5 border-b border-[var(--border)] pb-[22px] max-md:flex-col max-md:items-start max-md:gap-[18px]">
+        <h2 className="font-panton text-[28px] leading-[1.12] font-bold tracking-[-.02em] max-md:text-[26px]">
+          Latest stories
+        </h2>
+        <div className="flex items-center gap-3 max-md:w-full max-md:gap-2">
+          <label className="sr-only" htmlFor="post-search">
+            Search posts
+          </label>
+          <input
+            className={`${field} w-[180px] max-[1100px]:w-[220px] max-md:w-full max-md:flex-1`}
+            id="post-search"
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search posts..."
+          />
+          <label className="sr-only" htmlFor="post-category">
+            Category
+          </label>
+          <select
+            className={`${field} max-md:max-w-[130px]`}
+            id="post-category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="All">All categories</option>
+            {categories.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </select>
         </div>
       </div>
-
-      {/* Uniform Grid UI */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-        {filteredPosts.map((p, index) => (
+      <p
+        className="py-3 font-lekton text-[11px] leading-[1.6] text-[var(--text-muted)]"
+        aria-live="polite"
+      >
+        {posts.length} {posts.length === 1 ? "article" : "articles"}
+      </p>
+      <div>
+        {posts.map((post) => (
           <Link
-            key={p.slug}
-            href={`/blog/${p.slug}`}
-            className="group flex flex-col w-full"
+            className="group grid grid-cols-[180px_1fr] gap-6 border-b border-[var(--border)] py-[23px] max-md:grid-cols-[105px_1fr] max-md:gap-[15px] max-md:py-5"
+            href={"/blog/" + post.slug}
+            key={post.slug}
           >
-            <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900">
+            <div className="relative aspect-[1.55] overflow-hidden bg-[var(--surface-2)] max-md:aspect-[1.1]">
               <Image
-                src={p.thumbnail}
-                alt={p.title}
+                className="object-cover transition-transform duration-400"
+                src={post.thumbnail}
+                alt=""
                 fill
-                // 1. FIXES OVERSIZED IMAGES: Tells browser images are small on desktop
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                // 2. FIXES LCP: Loads the first image instantly
-                priority={index === 0}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                className="group-hover:scale-105 duration-500 transition-transform object-cover opacity-80 group-hover:opacity-100"
+                sizes="(max-width:767px) 105px, 180px"
               />
             </div>
-
-            <div className="mt-5 flex flex-col flex-1 px-1">
-              <p className="text-[10px] tracking-widest text-primary font-bold mb-3 uppercase opacity-80 font-lekton">
-                {p.category}
+            <div>
+              <p className="font-lekton text-xs leading-[1.5] tracking-[.1em] uppercase text-[var(--text-secondary)] max-md:text-[10px]">
+                {post.category}
               </p>
-
-              <h2 className="text-xl font-bold leading-snug mb-3 line-clamp-2 text-white/90 group-hover:text-white transition-colors">
-                {p.title}
-              </h2>
-
-              <div className="flex items-center text-zinc-500 text-[11px] mt-auto pt-2 space-x-3 font-lekton">
-                <span className="font-medium text-zinc-400 uppercase tracking-wider">
-                  {p.author}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-zinc-700" />
-                <span>{p.date}</span>
-              </div>
+              <h3 className="my-2 font-panton text-[23px] leading-[1.23] font-bold tracking-[-.015em] group-hover:underline group-hover:underline-offset-4 max-md:my-[5px] max-md:mb-2.5 max-md:text-lg">
+                {post.title}
+              </h3>
+              <p className="font-lekton text-[11px] leading-[1.5] text-[var(--text-secondary)] max-md:text-[10px]">
+                {post.author} / <time dateTime={post.date}>{post.date}</time>
+              </p>
             </div>
           </Link>
         ))}
       </div>
-    </div>
+      {!posts.length && (
+        <p className="leading-[1.6] text-[var(--text-secondary)]">
+          No posts found.
+        </p>
+      )}
+    </section>
   );
 }

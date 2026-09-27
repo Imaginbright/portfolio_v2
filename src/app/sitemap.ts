@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { PRODUCTS } from "@/constants/products";
 import { PROJECTS } from "@/constants/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/development", // Portfolio/Projects Index
     "/contact", // Contact Page
     "/links", // Linktree/About Page
+    "/shop",
     "/3d", // 3D Page
   ].map((route) => ({
     url: `${baseUrl}${route}`,
@@ -50,5 +52,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Combine everything
-  return [...staticRoutes, ...blogRoutes, ...projectRoutes];
+  return [...staticRoutes, ...blogRoutes, ...projectRoutes, ...PRODUCTS.map(p => ({url: baseUrl + "/shop/" + p.slug, changeFrequency: "monthly" as const, priority: 0.7}))];
 }

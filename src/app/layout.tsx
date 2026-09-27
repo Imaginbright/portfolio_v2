@@ -1,17 +1,32 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
-// 1. Import both fonts
+// Display, reading/UI, and technical font voices
 import localFont from "next/font/local";
+import { Manrope } from "next/font/google";
 import "./globals.css";
+import SiteNav from "@/components/navigation/SiteNav";
+import SiteFooter from "@/components/navigation/SiteFooter";
 
-const whisper = localFont({
-  src: "./fonts/NewfieldRegular.woff",
-  variable: "--font-whisper",
-  weight: "400",
+const panton = localFont({
+  src: [
+    { path: "./fonts/Panton-Regular.woff", weight: "400", style: "normal" },
+    { path: "./fonts/Panton-SemiBold.woff", weight: "600", style: "normal" },
+    { path: "./fonts/Panton-Bold.woff", weight: "700", style: "normal" },
+    { path: "./fonts/panton_extrablack.woff", weight: "900", style: "normal" },
+  ],
+  variable: "--font-panton",
+  display: "swap",
 });
 
-//Configured Lekton
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-manrope",
+  display: "swap",
+});
+
+// Technical and metadata voice
 const lekton = localFont({
   src: [
     {
@@ -25,16 +40,9 @@ const lekton = localFont({
       style: "normal",
     },
   ],
-  variable: "--font-lekton",
+  variable: "--font-lekton-local",
 });
 
-// 3. Configured Luckiest Guy
-const luckiest = localFont({
-  src: "./fonts/Luckiestguy.woff",
-  weight: "400",
-  style: "normal",
-  variable: "--font-luckiest",
-});
 
 export const metadata: Metadata = {
   // This will allow Next.js to resolve absolute URLs for images
@@ -70,7 +78,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://imaginbright.com",
     title: "Imaginbright | Web Developer Portfolio",
-    description: "Turning complex ideas into seamless digital experiences.",
+    description:
+      "Web Developer specializing in React, Next.js, and Tailwind CSS.",
     siteName: "Imaginbright",
     images: [
       {
@@ -86,21 +95,19 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Imaginbright | Web Developer Portfolio",
-    description: "Turning complex ideas into seamless digital experiences.",
+    description:
+      "Web Developer specializing in React, Next.js, and Tailwind CSS.",
     images: ["/og-image.png"],
     creator: "@imaginbright",
   },
 
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
 
   // 3. GOOGLE VERIFICATION for search console
-  verification: {
-    google: "google-site-verification=YOUR_CODE_HERE", // I will add this later if Google asks for it
-  },
 
   // 4. GLOBAL ROBOTS CONTROL (Backup for robots.ts)
   robots: {
@@ -123,10 +130,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lekton.variable} ${luckiest.variable} ${whisper.variable} antialiased`}
-      >
+      <body className={`${panton.variable} ${manrope.variable} ${lekton.variable} font-manrope bg-[var(--background)] text-[var(--text-primary)] antialiased`}>
+        <a className="fixed top-2 left-2 z-100 -translate-y-[200%] bg-[var(--text-primary)] p-3 text-[var(--background)] focus:translate-y-0" href="#main-content">
+          Skip to content
+        </a>
+        <SiteNav />
         {children}
+        <SiteFooter />
         <Toaster position="bottom-right" richColors />
         <Analytics />
       </body>

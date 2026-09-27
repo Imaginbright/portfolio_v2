@@ -1,188 +1,51 @@
-"use client";
-
-import React, { useState } from "react";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { toast } from "sonner";
-import Button from "@/components/buttons/Button";
-import Navbar2 from "@/components/navigation/NavBar2";
+import ContactForm from "@/components/ContactForm";
 
-const formSchema = z.object({
-  firstName: z.string().min(2, "Required"),
-  lastName: z.string().min(2, "Required"),
-  email: z.string().email("Invalid email"),
-  projectType: z.string().min(2, "Required"),
-  projectDetails: z.string().min(10, "Please provide more details"),
-});
+export const metadata = {
+  title: "Contact",
+  alternates: { canonical: "/contact" },
+};
 
-type FormValues = z.infer<typeof formSchema>;
-
-const ContactForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-  });
-
-  const onSubmit = async (values: FormValues) => {
-    setIsLoading(true);
-    const toastId = toast.loading("Sending DM...");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      if (res.ok) {
-        toast.success("Message sent! I'll be in touch. 🚀", { id: toastId });
-        reset();
-      } else {
-        throw new Error();
-      }
-    } catch {
-      toast.error("Failed to send message.", { id: toastId });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // i used text base on mobile devices so the page doesn't zoom in cause the text is 14px
-  const inputClasses =
-    "w-full bg-transparent border-b border-neutral-700 py-2 text-white placeholder:text-neutral-500 focus:outline-none focus:border-white transition-colors font-lekton text-base md:text-sm";
-
-  const errorClasses =
-    "text-[10px] text-red-500 mt-1 uppercase tracking-wider block";
-
+export default function Contact() {
   return (
-    // FIX: Added min-h-screen here so justify-center works vertically on large screens
-    <section className="w-full min-h-screen flex flex-col items-center justify-center px-4 md:p-6">
-      <div className="max-w-5xl w-full flex flex-col">
-        {/* Navigation */}
-        <Navbar2 />
-
-        {/* Form Card */}
-        <div className="w-full bg-[#111111] rounded-2xl overflow-hidden flex flex-col lg:flex-row border border-neutral-800 shadow-xl">
+    <main id="main-content" className="mx-auto w-[min(1320px,calc(100%-96px))] py-16 max-[1100px]:w-[calc(100%-56px)] max-md:w-[calc(100%-36px)]">
+      <section className="mx-auto w-full max-w-5xl">
+        <div className="flex w-full flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-[#111111] font-sans shadow-xl lg:flex-row">
           <div className="flex-1 p-6 md:p-10 lg:p-12">
             <header className="mb-8">
-              <h2 className="text-2xl font-bold text-white mb-2">Send a DM</h2>
-              <p className="text-neutral-400 text-sm">
-                Have a project in mind? Let&apos;s get to work.
-              </p>
+              <h1 className="mb-2 font-display text-2xl leading-8 font-semibold tracking-[-.02em] text-white">Send a DM</h1>
+              <p className="font-sans text-sm leading-5 text-neutral-400">Have a project in mind? Let&apos;s get to work.</p>
             </header>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <input
-                    {...register("firstName")}
-                    placeholder="First name"
-                    className={inputClasses}
-                  />
-                  {errors.firstName && (
-                    <span className={errorClasses}>
-                      {errors.firstName.message}
-                    </span>
-                  )}
-                </div>
-                <div>
-                  <input
-                    {...register("lastName")}
-                    placeholder="Last name"
-                    className={inputClasses}
-                  />
-                  {errors.lastName && (
-                    <span className={errorClasses}>
-                      {errors.lastName.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <input
-                  {...register("projectType")}
-                  placeholder="Project type(Landing Pages, SAAS)"
-                  className={inputClasses}
-                />
-                {errors.projectType && (
-                  <span className={errorClasses}>
-                    {errors.projectType.message}
-                  </span>
-                )}
-              </div>
-
-              <div>
-                <input
-                  {...register("email")}
-                  type="email"
-                  placeholder="Your email"
-                  className={inputClasses}
-                />
-                {errors.email && (
-                  <span className={errorClasses}>{errors.email.message}</span>
-                )}
-              </div>
-
-              <div>
-                <textarea
-                  {...register("projectDetails")}
-                  placeholder="Tell me about your project..."
-                  rows={3}
-                  className={`${inputClasses} resize-none`}
-                />
-                {errors.projectDetails && (
-                  <span className={errorClasses}>
-                    {errors.projectDetails.message}
-                  </span>
-                )}
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-primary text-black border border-black font-bold py-3 rounded-lg hover:bg-primary/80 transition-all text-sm mt-4 cursor-pointer"
-              >
-                {isLoading ? "Sending..." : "Get in touch"}
-              </Button>
-            </form>
+            <ContactForm />
           </div>
 
-          <div className="hidden lg:block w-[40%] relative min-h-125">
+          <aside className="group relative hidden min-h-125 w-[40%] shrink-0 lg:block">
             <Image
-              src="/images/contact.PNG"
-              alt="Contact Visual"
+              src="/optimized/contact.webp"
+              alt="Somto in profile"
               fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              sizes="(max-width: 1024px) 0px, 420px"
+              className="object-cover grayscale transition-[filter] duration-700 group-hover:grayscale-0"
               priority
             />
-            <div className="absolute inset-0 p-10 flex flex-col justify-end bg-linear-to-t from-black/90 via-black/20 to-transparent">
-              <div className="space-y-3">
-                <p className="text-lg text-white font-medium leading-tight">
+
+            <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/90 via-black/20 to-transparent p-10">
+              <div>
+                <p className="font-sans text-lg leading-[1.45] font-medium text-white">
                   &ldquo;Turning complex ideas into seamless digital
                   experiences.&rdquo;
                 </p>
-                <div>
-                  <p className="text-sm text-white font-bold tracking-widest">
-                    Somto
-                  </p>
-                  <p className="text-xs text-neutral-400">@imaginbright</p>
+
+                <div className="mt-3 flex flex-col gap-[.15rem]">
+                  <strong className="font-lekton text-sm leading-5 font-bold tracking-[.1em] text-white">Somto</strong>
+                  <span className="font-lekton text-xs leading-4 text-neutral-400">@imaginbright</span>
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
-};
-
-export default ContactForm;
+}
