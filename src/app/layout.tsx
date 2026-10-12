@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 // Display, reading/UI, and technical font voices
 import localFont from "next/font/local";
 import { Manrope } from "next/font/google";
@@ -43,7 +44,6 @@ const lekton = localFont({
   ],
   variable: "--font-lekton-local",
 });
-
 
 export const metadata: Metadata = {
   // This will allow Next.js to resolve absolute URLs for images
@@ -127,14 +127,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${panton.variable} ${manrope.variable} ${lekton.variable} font-manrope bg-[var(--background)] text-[var(--text-primary)] antialiased`}>
-        <a className="fixed top-2 left-2 z-100 -translate-y-[200%] bg-[var(--text-primary)] p-3 text-[var(--background)] focus:translate-y-0" href="#main-content">
+      <body
+        className={`${panton.variable} ${manrope.variable} ${lekton.variable} font-manrope bg-[var(--background)] text-[var(--text-primary)] antialiased`}
+      >
+        <a
+          className="fixed top-2 left-2 z-100 -translate-y-[200%] bg-[var(--text-primary)] p-3 text-[var(--background)] focus:translate-y-0"
+          href="#main-content"
+        >
           Skip to content
         </a>
         <SiteNav />
         {children}
         <SiteFooter />
         <Toaster position="bottom-right" richColors />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
         <Analytics />
       </body>
     </html>
