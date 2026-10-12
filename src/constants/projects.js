@@ -4,7 +4,7 @@ export const PROJECTS = [
     title: "BrightsBase",
     subtitle: "FullStack Application",
     description:
-      "Brightbase is a student-centric question and answer platform that connects learners with answers — modeled after community sites like Reddit but focused on academic help. Students can ask questions, browse answers, and engage with a knowledge-sharing community.",
+      "Brightbase is a student-centric question and answer platform that connects learners with answers. It modeled after community sites like Reddit but focused on academic help. Students can ask questions, browse answers, and engage with a knowledge-sharing community.",
     role: "Full Stack Developer",
     year: "2026",
     url: "https://brightsbase.vercel.app/",
