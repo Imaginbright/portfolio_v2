@@ -7,17 +7,18 @@ import Carousel from "@/components/Carousel";
 import ProjectPreview from "@/components/ProjectPreview";
 const videos = [
   {
-    title: "I replaced my Computer with an iPad",
-    image: "/youtube/ipadpc.jpg",
-    duration: "4:19",
-    url: "https://youtu.be/5jxAUn__TSA?si=GEX2UGCIOh3iCsYm",
+    title: "I Tested the iTel PowerTank During a Blackout",
+    image: "/youtube/powertank-header.webp",
+    duration: "07:43",
+    url: "https://youtu.be/r9ssMhCnJks?si=Lx7JRPhNUxKNfTo2",
   },
   {
-    title: "Apple event leaks: iPhone 17, Watch 3 Ultra, AirPods Pro 3",
-    image: "/youtube/appleevent.jpg",
-    duration: "03:55",
-    url: "https://youtu.be/KUUzetPyxKA?si=g4v3B-794dTvVoBO",
+    title: "6 Months With the Lenovo Legion 5 - The Reality",
+    image: "/youtube/legion.webp",
+    duration: "07:29",
+    url: "https://youtu.be/ioO8Z3dXDVc?si=poVmJY0b7D0dQpFa",
   },
+
   {
     title: "Don’t buy the S20 Ultra in 2026",
     image: "/youtube/s20.jpeg",
