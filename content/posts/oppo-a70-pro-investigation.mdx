@@ -1,0 +1,176 @@
+---
+title: "I Bought an OPPO Phone That OPPO Doesn't Make"
+date: "2026-10-16"
+author: "Somto"
+category: "Hardware"
+featured: true
+thumbnail: "/blog/oppo-a70-pro/oppo-a70-pro-header.webp"
+description: "I bought what looks like an OPPO A70 Pro for around ₦100,000, but OPPO doesn't seem to officially make it. Here's what I found when I started checking what was actually inside."
+---
+
+## The OPPO A70 Pro?
+
+If you walk into some phone shops here with around **₦100,000**, you will probably come across phones like this.
+
+Mine is supposedly the **OPPO A70 Pro**, and if you judge it entirely by what is written on the phone, it sounds like an incredible deal. It claims to have 8GB of RAM, 256GB of storage, Android 15, face unlock and what looks like three cameras on the back.
+
+So for around a ₦100,000, I can understand why somebody would buy it, especially when there is a familiar OPPO logo sitting on the back.
+
+The problem is that I could not find an OPPO A70 Pro on OPPO's own website.
+
+There was no product page or official specification sheet that I could find but that alone was not enough for me to immediately call the phone fake. Manufacturers sometimes release devices in specific markets, names can change between regions and official websites do not always list every product ever released.
+
+Then I found another phone being sold as the **OPPO A40 Pro**.
+
+OPPO actually makes a phone called the A40, which made this one easier to compare. The official A40 and the supposed A40 Pro being sold here look completely different. The body is different, the camera design is different and I could not find this A40 Pro on OPPO's website either.
+
+![Official OPPO A40 beside the supposed OPPO A40 Pro being sold locally](/blog/oppo-a70-pro/oppo-a40-comparison.webp)
+
+At that point I had two phones carrying the OPPO name, both being sold like normal OPPO devices, yet I could not find proper documentation from OPPO for either of them.
+
+So I stopped caring about what was printed on the outside.
+
+I wanted to know what I had actually bought.
+
+## Those Three Cameras Are Not Three Cameras
+
+The rear of the A70 Pro looks like it has three cameras, and on a cheap phone that presentation matters more than you might think.
+
+Put this beside another ₦100,000 phone with one small camera and, visually, the A70 Pro immediately looks more expensive. The three large rings suggest a much more capable camera system before you have even taken a photo.
+
+Except only one of them appears to contain an actual camera lens.
+
+![Rear of the supposed OPPO A70 Pro showing its three large camera rings](/blog/oppo-a70-pro/a70-pro-camera-rings.webp)
+
+I connected the phone to my computer and checked what Android itself could detect. The system reported **two cameras in the entire phone: one front camera and one rear camera**.
+
+So what looks like a triple camera setup is actually one rear camera with two extra circles sitting beside it for decoration.
+
+<Callout>
+
+**Camera check:** the phone looks like it has three rear cameras, but Android detected only **one rear camera and one front camera**.
+
+</Callout>
+
+![Computer showing the Android camera hardware detected on the A70 Pro](/blog/oppo-a70-pro/a70-pro-camera-test.webp)
+
+This was the point where the phone started making more sense to me.
+
+Most people shopping around ₦100,000 are not asking which exact image sensor is inside a phone. They are looking at what they can immediately see: three large cameras, plenty of RAM, a huge storage number, a recent version of Android and a brand name they recognise.
+
+On the surface, this phone gives you all of that.
+
+So I started checking the things you cannot see.
+
+## 8GB RAM, 256GB Storage and Android 15?
+
+The phone claims to have **8GB of RAM and 256GB of storage**. If you open Settings, you see those same numbers.
+
+It also says it is running **Android 15**.
+
+![Settings screen on the A70 Pro showing its advertised RAM, storage and Android version](/blog/oppo-a70-pro/a70-pro-settings.webp)
+
+The problem is that Settings is still software. If the firmware has been configured to show a particular number, opening Settings does not independently prove that the hardware underneath matches it.
+
+So I connected the phone to my PC and started checking what Android was reporting underneath the normal interface.
+
+That is where things became ridiculous.
+
+The phone does not even identify itself internally as an OPPO. The manufacturer value comes back as **"along"**, the brand is reported as **ETERNITY**, and the model number is **SP-001**, not A70 Pro.
+
+![System properties showing ETERNITY, SP-001 and the internal manufacturer information](/blog/oppo-a70-pro/a70-pro-device-properties.webp)
+
+Then there is Android.
+
+The phone tells you it is running Android 15, while the underlying system reports **Android 10**.
+
+The RAM is just as different. Instead of the advertised 8GB, Android can see around **3GB of physical RAM**.
+
+And then there is the storage.
+
+The phone claims to have 256GB, but when I checked its data partition, Android showed **9.1GB of usable internal storage**.
+
+Nine point one gigabytes on a phone being sold as 256GB.
+
+![Terminal showing the usable internal data storage reported by Android](/blog/oppo-a70-pro/a70-pro-storage-test.webp)
+
+The device is also running on a MediaTek platform rather than the hardware being advertised on the phone.
+
+Put everything together and the difference becomes difficult to dismiss.
+
+|                  | Advertised                     | What I found                       |
+| :--------------- | :----------------------------- | :--------------------------------- |
+| **Model**        | OPPO A70 Pro                   | ETERNITY SP-001                    |
+| **Android**      | Android 15                     | Android 10                         |
+| **RAM**          | 8GB                            | About 3GB physical RAM             |
+| **Storage**      | 256GB                          | 9.1GB usable internal data storage |
+| **Rear cameras** | Three                          | One                                |
+| **Platform**     | Advertised higher end hardware | MediaTek platform                  |
+
+This is not one specification being slightly exaggerated. What Android reports underneath is a completely different device from the one being presented to the buyer.
+
+## So Who Actually Made It?
+
+Somebody designed the phone, assembled it, installed Android on it and put OPPO's name on the outside. Somehow that device then made its way into shops where it is being sold like a normal OPPO phone.
+
+That brings us to the manufacturing side of the story.
+
+China obviously does not simply mean fake electronics. China also manufactures genuine OPPO phones, iPhones, Samsung devices and an enormous amount of the electronics the rest of the world uses.
+
+What is more relevant here is how flexible that manufacturing industry can be.
+
+A factory does not necessarily need to build its own internationally recognised smartphone brand. Existing processor platforms, displays, batteries, housings and camera modules can be combined into products made for other companies. OEM and ODM manufacturing like this is completely normal.
+
+The questionable part is putting somebody else's brand on that hardware.
+
+I cannot tell you where in the chain the OPPO branding was added. It could have happened at the factory, through a wholesaler, through an importer or somewhere else entirely, and I do not have evidence to pin that decision on any one of them.
+
+What I can show is much simpler: these phones are being sold here using OPPO's name, while the hardware and software I inspected do not identify the A70 Pro as an OPPO device.
+
+## Why Would Anyone Buy One?
+
+It is easy to look at a phone like this after seeing the test results and wonder why anybody would buy it.
+
+I actually understand why someone would.
+
+Imagine you have around ₦100,000 and walk into a phone shop. One phone says 4GB of RAM and 64GB of storage.
+
+Beside it is another phone claiming:
+
+- 8GB of RAM
+- 256GB of storage
+- three rear cameras
+- Android 15
+- OPPO branding
+
+If you do not closely follow smartphones, which one looks like the better deal?
+
+That is why I do not like simply calling people who buy these devices careless.
+
+The entire product is designed to look like the better deal. The familiar brand name helps. The huge camera rings help. The RAM and storage numbers help. Even the overall design is trying to give you the visual cues people associate with a more expensive phone.
+
+And that matters in a market where phones are already expensive. Proper flagship phones now cost well over a million naira, and even decent midrange devices are not exactly cheap.
+
+People are naturally looking for the most they can get for their money.
+
+When a phone appears promising 8GB of RAM and 256GB of storage for around ₦100,000, of course people are going to look at it.
+
+![The supposed OPPO A70 Pro displayed like a normal smartphone for sale](/blog/oppo-a70-pro/a70-pro-market.webp)
+
+## Check the Exact Model Before You Pay
+
+If you are buying a cheaper phone from a brand you recognise, there is one very simple thing I would recommend doing before handing over your money.
+
+**Search the exact model name.**
+
+Do not stop at a normal Google search. Go to the manufacturer's official website and look at what the phone is actually supposed to look like. Compare the official specifications and, if possible, check the model number of the device you are buying.
+
+<Callout>
+
+Seeing **OPPO, Samsung, Redmi or another familiar name** printed on the back does not automatically prove that the phone came from that manufacturer.
+
+Check the exact model before you pay.
+
+</Callout>
+
+A few minutes of checking can tell you a lot more than a sticker promising huge RAM, storage and camera numbers.
