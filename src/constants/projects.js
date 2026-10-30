@@ -1,5 +1,22 @@
 export const PROJECTS = [
   {
+    slug: "lifeos",
+    title: "LifeOS",
+    subtitle: "Personal Productivity & Creator Dashboard",
+    description:
+      "LifeOS is a personal dashboard designed to bring everyday tasks, recurring schedules, goals, subscriptions, and content creation into one place. It combines productivity tools with creator analytics and a dedicated workspace for managing scripts. Originally built for private, single-user use, the public version is an interactive demo with sample data that lets visitors explore the application without accessing the real workspace.",
+    role: "Full Stack Developer",
+    year: "2026",
+    url: "https://lifeos-navy-six.vercel.app/demo",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+    images: {
+      main: "/optimized/lifeos1.webp",
+      screenshot1: "/optimized/lifeosss11.webp",
+      screenshot2: "/optimized/lifeosss1.webp",
+    },
+  },
+
+  {
     slug: "brightsbase",
     title: "BrightsBase",
     subtitle: "FullStack Application",
@@ -30,6 +47,23 @@ export const PROJECTS = [
       main: "/optimized/bw.webp",
       screenshot1: "/optimized/bws1.webp",
       screenshot2: "/optimized/bws2.webp",
+    },
+  },
+
+  {
+    slug: "clip-optimizer",
+    title: "Clip Optimizer",
+    subtitle: "Windows Desktop Utility",
+    description:
+      "Clip Optimizer is a Windows desktop application built to simplify a TikTok-focused video optimization workflow. It uses FFmpeg to process videos locally through a straightforward interface, preserving the original footage while generating a separate optimized file. Built with Tauri, React, and Rust, the application brings together native desktop functionality and video processing without requiring users to upload their files. The project is currently in development.",
+    role: "Frontend Developer",
+    year: "2026",
+    url: null,
+    stack: ["Tauri", "React", "TypeScript", "Rust", "FFmpeg"],
+    images: {
+      main: "/optimized/co.webp",
+      screenshot1: "/optimized/coss1.webp",
+      screenshot2: "/optimized/coss2.webp",
     },
   },
 
