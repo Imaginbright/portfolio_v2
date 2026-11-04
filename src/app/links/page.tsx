@@ -12,6 +12,8 @@ import {
   BookOpen,
   ShoppingBag,
   ArrowUpRight,
+  Download,
+  MonitorSmartphone,
 } from "lucide-react";
 import { buildOpenGraph } from "@/lib/site";
 
@@ -70,6 +72,17 @@ const socialLinks = [
   },
 ];
 
+const usefulApps = [
+  {
+    name: "iPhoneMirror",
+    description:
+      "Mirror your iPhone or iPad to a Windows PC over USB or AirPlay, with support for screen recording and OBS integration.",
+    repository: "https://github.com/RayrenSX/iPhoneMirror",
+    download:
+      "https://github.com/RayrenSX/iPhoneMirror/releases/download/v1.8.5-pre4/iPhoneMirror-Setup-v1.8.5-pre4-x64.exe",
+  },
+];
+
 const description =
   "Imaginbright links, social profiles, Blog, Shop, and contact page.";
 
@@ -104,8 +117,7 @@ export default function Links() {
         </h1>
 
         <p className="font-manrope text-white/75 text-[16px] leading-relaxed mb-5">
-          A self-taught Developer, Designer &amp; 3d Artist. Currently studying
-          my head off for my Finals.
+          A self-taught Developer, Designer &amp; 3d Artist.
         </p>
 
         {/* Social Navigation */}
@@ -156,11 +168,72 @@ export default function Links() {
                   {link.icon}
                 </div>
 
-                <span className="font-panton font-semibold text-[18px] tracking-wide">{link.title}</span>
+                <span className="font-panton font-semibold text-[18px] tracking-wide">
+                  {link.title}
+                </span>
               </div>
 
               <ArrowUpRight className="w-5 h-5 text-zinc-700 group-hover:text-zinc-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
             </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="w-full max-w-137.5 mt-14">
+        <h2 className="font-lekton text-[14px] uppercase tracking-[0.35em] text-white/75 font-bold mb-6 text-center">
+          Useful Apps
+        </h2>
+
+        <div className="flex flex-col gap-4">
+          {usefulApps.map((app) => (
+            <article
+              key={app.name}
+              className="rounded-[2.5rem] border border-zinc-800 bg-zinc-900/30 p-5 sm:p-6"
+            >
+              <div className="flex items-start gap-4">
+                <div className="shrink-0 rounded-full bg-blue-400/10 p-2.5 text-blue-400">
+                  <MonitorSmartphone className="h-5 w-5" />
+                </div>
+
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-panton text-[20px] font-semibold tracking-wide">
+                      {app.name}
+                    </h3>
+                    <span className="rounded-full border border-zinc-700 px-2 py-1 font-lekton text-[10px] uppercase tracking-wider text-white/60">
+                      Preview / pre-release
+                    </span>
+                  </div>
+
+                  <p className="mt-2 font-manrope text-[14px] leading-relaxed text-white/70">
+                    {app.description}
+                  </p>
+                  <p className="mt-3 font-lekton text-[11px] uppercase tracking-wider text-white/45">
+                    Third-party software — not developed by me
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href={app.download}
+                  aria-label={`Download ${app.name} preview for Windows`}
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#FF9D52] px-5 py-3 font-manrope text-[13px] font-semibold text-zinc-950 transition-colors hover:bg-[#ffb071]"
+                >
+                  <Download className="h-4 w-4" />
+                  Download for Windows
+                </a>
+                <a
+                  href={app.repository}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-700 px-5 py-3 font-manrope text-[13px] font-semibold text-white/85 transition-colors hover:border-zinc-500 hover:bg-zinc-800/60 hover:text-white"
+                >
+                  <Github className="h-4 w-4" />
+                  View on GitHub
+                </a>
+              </div>
+            </article>
           ))}
         </div>
       </section>
