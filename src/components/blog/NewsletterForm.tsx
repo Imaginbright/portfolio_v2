@@ -8,14 +8,29 @@ export default function NewsletterForm() {
     e.preventDefault();
     setStatus("loading");
     try {
-      await fetch(
-        "https://imaginbrights-store.lemonsqueezy.com/email-subscribe/external",
-        {
-          method: "POST",
-          body: new FormData(e.currentTarget),
-          mode: "no-cors",
+      const formData = new FormData(e.currentTarget);
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+        }),
+      });
+      const data = (await response.json().catch(() => null)) as {
+        error?: unknown;
+      } | null;
+
+      if (!response.ok) {
+        throw new Error(
+          typeof data?.error === "string"
+            ? data.error
+            : "Unable to submit. Please try again.",
+        );
+      }
+
       setStatus("submitted");
     } catch {
       setStatus("error");
@@ -39,7 +54,7 @@ export default function NewsletterForm() {
           Request submitted.
         </p>
       ) : (
-        <form className="grid gap-3" onSubmit={submit}>
+        <form className="grid gap-3" onSubmit={submit} noValidate>
           <label className="sr-only" htmlFor="newsletter-name">
             Your Name
           </label>

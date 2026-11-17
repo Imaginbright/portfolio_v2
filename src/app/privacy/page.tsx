@@ -109,13 +109,14 @@ export default function Privacy() {
         <h2 className={heading}>Newsletter subscriptions</h2>
         <p className="mt-4">
           If you subscribe to the newsletter, the name and email address you
-          enter are sent to Lemon Squeezy, which handles the subscription.
+          enter are sent to Kit (formerly ConvertKit), which handles the
+          subscription.
         </p>
         <p className="mt-4">
-          Lemon Squeezy manages that information under its own{" "}
+          Kit (formerly ConvertKit) manages that information under its own{" "}
           <a
             className={link}
-            href="https://www.lemonsqueezy.com/privacy"
+            href="https://kit.com/privacy"
             rel="noreferrer"
             target="_blank"
           >
@@ -168,7 +169,7 @@ export default function Privacy() {
         <h2 className={heading}>External links</h2>
         <p className="mt-4">
           I link to other websites and services, including social platforms,
-          YouTube, project websites, and Lemon Squeezy.
+          YouTube, project websites, and Kit (formerly ConvertKit).
         </p>
         <p className="mt-4">
           Once you leave Imaginbright, those websites handle your information
